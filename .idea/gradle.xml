@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="distributionType" value="LOCAL" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleHome" value="C:/Program Files/Grandle/gradle-2.7" />
+        <option name="gradleJvm" value="1.8" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/alizarin-crimson" />
+            <option value="$PROJECT_DIR$/bangladesh-green" />
+            <option value="$PROJECT_DIR$/candy-pink" />
+            <option value="$PROJECT_DIR$/common" />
+            <option value="$PROJECT_DIR$/demo" />
+            <option value="$PROJECT_DIR$/dim-gray" />
+            <option value="$PROJECT_DIR$/eerie-black" />
+            <option value="$PROJECT_DIR$/fuzzy-wuzzy" />
+            <option value="$PROJECT_DIR$/golden-brown" />
+            <option value="$PROJECT_DIR$/heat-wave" />
+            <option value="$PROJECT_DIR$/imperial-red" />
+            <option value="$PROJECT_DIR$/japanese-violet" />
+            <option value="$PROJECT_DIR$/lavender-gray" />
+            <option value="$PROJECT_DIR$/navajo-white" />
+          </set>
+        </option>
+        <option name="useAutoImport" value="true" />
+        <option name="myModules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/alizarin-crimson" />
+            <option value="$PROJECT_DIR$/bangladesh-green" />
+            <option value="$PROJECT_DIR$/candy-pink" />
+            <option value="$PROJECT_DIR$/common" />
+            <option value="$PROJECT_DIR$/demo" />
+            <option value="$PROJECT_DIR$/dim-gray" />
+            <option value="$PROJECT_DIR$/eerie-black" />
+            <option value="$PROJECT_DIR$/fuzzy-wuzzy" />
+            <option value="$PROJECT_DIR$/golden-brown" />
+            <option value="$PROJECT_DIR$/heat-wave" />
+            <option value="$PROJECT_DIR$/imperial-red" />
+            <option value="$PROJECT_DIR$/japanese-violet" />
+            <option value="$PROJECT_DIR$/lavender-gray" />
+            <option value="$PROJECT_DIR$/navajo-white" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>

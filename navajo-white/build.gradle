@@ -10,7 +10,7 @@ buildscript {
 
 eclipse {
    project {
-      name = 'UrlShortener2015.demo'
+      name = 'UrlShortener2015.navajo-white'
    }
 }
 

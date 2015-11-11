@@ -1,4 +1,4 @@
-package main.java.urlshortener2015.navajowhite;
+package urlshortener2015.navajowhite;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

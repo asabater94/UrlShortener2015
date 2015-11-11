@@ -1,4 +1,4 @@
-package main.java.urlshortener2015.navajowhite.web;
+package urlshortener2015.navajowhite.web;
 
 import javax.servlet.http.HttpServletRequest;
 

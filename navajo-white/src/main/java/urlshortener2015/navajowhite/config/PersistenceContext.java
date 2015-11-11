@@ -1,4 +1,4 @@
-package main.java.urlshortener2015.navajowhite.config;
+package urlshortener2015.navajowhite.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
