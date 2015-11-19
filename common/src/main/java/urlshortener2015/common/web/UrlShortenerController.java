@@ -4,6 +4,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.sql.Date;
 import java.util.UUID;
@@ -101,6 +102,26 @@ public class UrlShortenerController {
 			return shortURLRepository.save(su);
 		} else {
 			return null;
+		}
+	}
+
+	@RequestMapping(value = "/{hash:(?!link).*}" + "+", method = RequestMethod.GET)
+	public ResponseEntity<?> clicksInfo(@PathVariable String hash,
+										HttpServletRequest request) throws URISyntaxException {
+
+		Long numeroClicks = clickRepository.clicksByHash(hash);
+		if (numeroClicks != null){
+			System.out.println(numeroClicks);
+
+			//TO DO: Redirigir a pagina
+			HttpHeaders h = new HttpHeaders();
+			h.setLocation(new URI("/web/clicksInfo.html"));
+			h.add("numeroClicks",String.valueOf(numeroClicks));
+			return new ResponseEntity<>(h, HttpStatus.SEE_OTHER);
+
+		}
+		else{
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
 }

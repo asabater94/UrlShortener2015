@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import urlshortener2015.common.domain.ShortURL;
 import urlshortener2015.common.web.UrlShortenerController;
 
+import java.net.URISyntaxException;
+
 @RestController
 public class UrlShortenerControllerWithLogs extends UrlShortenerController {
 
@@ -24,6 +26,13 @@ public class UrlShortenerControllerWithLogs extends UrlShortenerController {
 	public ResponseEntity<?> redirectTo(@PathVariable String id, HttpServletRequest request) {
 		logger.info("Requested redirection with hash " + id);
 		return super.redirectTo(id, request);
+	}
+
+	@Override
+	@RequestMapping(value = "/{hash:(?!link|index).*}" + "+", method = RequestMethod.GET)
+	public ResponseEntity<?> clicksInfo(@PathVariable String hash, HttpServletRequest request) throws URISyntaxException {
+		logger.info("Requested info about page with hash " + hash);
+		return super.clicksInfo(hash, request);
 	}
 
 	@Override
