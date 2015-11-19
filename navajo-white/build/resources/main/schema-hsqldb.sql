@@ -12,7 +12,7 @@ CREATE TABLE SHORTURL(
 	CREATED 	TIMESTAMP,					-- Creation date
 	OWNER		VARCHAR(255),				-- User id
 	MODE		INTEGER,					-- Redirect mode
-	SAFE		BOOLEAN,						-- Safe target
+	SAFE		BOOLEAN,					-- Safe target
 	IP			VARCHAR(20),				-- IP
 	COUNTRY		VARCHAR(50)					-- Country
 );
