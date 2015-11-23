@@ -18,11 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import urlshortener2015.common.domain.Click;
 import urlshortener2015.common.domain.ShortURL;
@@ -105,23 +102,14 @@ public class UrlShortenerController {
 		}
 	}
 
-	@RequestMapping(value = "/{hash:(?!link).*}" + "+", method = RequestMethod.GET)
-	public ResponseEntity<?> clicksInfo(@PathVariable String hash,
-										HttpServletRequest request) throws URISyntaxException {
+	@RequestMapping(value = "/{hash:(?!link).*}" + "+")
+	public String clicksInfo(@PathVariable String hash,
+										HttpServletRequest request, Model model) throws URISyntaxException {
 
 		Long numeroClicks = clickRepository.clicksByHash(hash);
-		if (numeroClicks != null){
-			System.out.println(numeroClicks);
+		model.addAttribute("numeroClicks",numeroClicks);
+		return "clicksInfo";
 
-			//TO DO: Redirigir a pagina
-			HttpHeaders h = new HttpHeaders();
-			h.setLocation(new URI("/web/clicksInfo.html"));
-			h.add("numeroClicks",String.valueOf(numeroClicks));
-			return new ResponseEntity<>(h, HttpStatus.SEE_OTHER);
-
-		}
-		else{
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
 	}
+
 }
