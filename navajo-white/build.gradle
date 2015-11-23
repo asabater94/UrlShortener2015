@@ -17,7 +17,7 @@ eclipse {
 apply plugin: 'eclipse-wtp'
 apply plugin: 'spring-boot'
 
-mainClassName = 'main.java.urlshortener2015.navajowhite.Application'
+mainClassName = 'urlshortener2015.navajowhite.Application'
 
 dependencies {
     compile project(':common')
@@ -33,4 +33,6 @@ dependencies {
     testCompile 'org.springframework.boot:spring-boot-starter-test'
     testCompile 'org.apache.httpcomponents:httpclient:4.5'
     testCompile 'com.jayway.jsonpath:json-path:0.9.1'
+
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
 }

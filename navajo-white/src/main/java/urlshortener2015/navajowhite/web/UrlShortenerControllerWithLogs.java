@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,9 +31,10 @@ public class UrlShortenerControllerWithLogs extends UrlShortenerController {
 
 	@Override
 	@RequestMapping(value = "/{hash:(?!link|index).*}" + "+", method = RequestMethod.GET)
-	public ResponseEntity<?> clicksInfo(@PathVariable String hash, HttpServletRequest request) throws URISyntaxException {
+	public String clicksInfo(@PathVariable String hash, HttpServletRequest request, Model model) throws URISyntaxException {
 		logger.info("Requested info about page with hash " + hash);
-		return super.clicksInfo(hash, request);
+
+		return super.clicksInfo(hash, request, model);
 	}
 
 	@Override
@@ -42,4 +44,5 @@ public class UrlShortenerControllerWithLogs extends UrlShortenerController {
 		logger.info("Requested new short for uri " + url);
 		return super.shortener(url, sponsor, brand, request);
 	}
+
 }
