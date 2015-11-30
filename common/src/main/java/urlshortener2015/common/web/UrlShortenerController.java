@@ -102,14 +102,5 @@ public class UrlShortenerController {
 		}
 	}
 
-	@RequestMapping(value = "/{hash:(?!link).*}" + "+")
-	public String clicksInfo(@PathVariable String hash,
-										HttpServletRequest request, Model model) throws URISyntaxException {
-
-		Long numeroClicks = clickRepository.clicksByHash(hash);
-		model.addAttribute("numeroClicks",numeroClicks);
-		return "clicksInfo";
-
-	}
 
 }
