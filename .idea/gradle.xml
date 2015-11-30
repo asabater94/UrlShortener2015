@@ -10,19 +10,6 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/alizarin-crimson" />
-            <option value="$PROJECT_DIR$/bangladesh-green" />
-            <option value="$PROJECT_DIR$/candy-pink" />
-            <option value="$PROJECT_DIR$/common" />
-            <option value="$PROJECT_DIR$/demo" />
-            <option value="$PROJECT_DIR$/dim-gray" />
-            <option value="$PROJECT_DIR$/eerie-black" />
-            <option value="$PROJECT_DIR$/fuzzy-wuzzy" />
-            <option value="$PROJECT_DIR$/golden-brown" />
-            <option value="$PROJECT_DIR$/heat-wave" />
-            <option value="$PROJECT_DIR$/imperial-red" />
-            <option value="$PROJECT_DIR$/japanese-violet" />
-            <option value="$PROJECT_DIR$/lavender-gray" />
             <option value="$PROJECT_DIR$/navajo-white" />
           </set>
         </option>
@@ -30,19 +17,6 @@
         <option name="myModules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/alizarin-crimson" />
-            <option value="$PROJECT_DIR$/bangladesh-green" />
-            <option value="$PROJECT_DIR$/candy-pink" />
-            <option value="$PROJECT_DIR$/common" />
-            <option value="$PROJECT_DIR$/demo" />
-            <option value="$PROJECT_DIR$/dim-gray" />
-            <option value="$PROJECT_DIR$/eerie-black" />
-            <option value="$PROJECT_DIR$/fuzzy-wuzzy" />
-            <option value="$PROJECT_DIR$/golden-brown" />
-            <option value="$PROJECT_DIR$/heat-wave" />
-            <option value="$PROJECT_DIR$/imperial-red" />
-            <option value="$PROJECT_DIR$/japanese-violet" />
-            <option value="$PROJECT_DIR$/lavender-gray" />
             <option value="$PROJECT_DIR$/navajo-white" />
           </set>
         </option>
