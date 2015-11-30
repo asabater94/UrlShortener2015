@@ -1,8 +1,8 @@
-package urlshortener2015.common.repository;
+package urlshortener2015.navajowhite.repository;
+
+import urlshortener2015.navajowhite.domain.ShortURL;
 
 import java.util.List;
-
-import urlshortener2015.common.domain.ShortURL;
 
 public interface ShortURLRepository {
 

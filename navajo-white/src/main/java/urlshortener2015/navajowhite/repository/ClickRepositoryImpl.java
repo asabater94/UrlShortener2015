@@ -1,12 +1,4 @@
-package urlshortener2015.common.repository;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Types;
-import java.util.List;
+package urlshortener2015.navajowhite.repository;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,8 +11,11 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import urlshortener2015.navajowhite.domain.Click;
 
-import urlshortener2015.common.domain.Click;
+
+import java.sql.*;
+import java.util.List;
 
 
 @Repository

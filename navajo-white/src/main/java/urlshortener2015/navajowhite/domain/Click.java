@@ -1,4 +1,4 @@
-package urlshortener2015.common.domain;
+package urlshortener2015.navajowhite.domain;
 
 import java.sql.Date;
 

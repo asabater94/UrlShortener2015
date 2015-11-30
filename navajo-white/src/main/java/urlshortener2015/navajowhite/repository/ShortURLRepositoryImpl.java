@@ -1,9 +1,4 @@
-package urlshortener2015.common.repository;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Collections;
-import java.util.List;
+package urlshortener2015.navajowhite.repository;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,8 +9,12 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import urlshortener2015.navajowhite.domain.ShortURL;
 
-import urlshortener2015.common.domain.ShortURL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Collections;
+import java.util.List;
 
 @Repository
 public class ShortURLRepositoryImpl implements ShortURLRepository {
