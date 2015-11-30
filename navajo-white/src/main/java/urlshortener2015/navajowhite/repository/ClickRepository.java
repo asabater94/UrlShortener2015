@@ -1,8 +1,9 @@
-package urlshortener2015.common.repository;
+package urlshortener2015.navajowhite.repository;
+
+
+import urlshortener2015.navajowhite.domain.Click;
 
 import java.util.List;
-
-import urlshortener2015.common.domain.Click;
 
 public interface ClickRepository {
 

@@ -1,10 +1,9 @@
-package urlshortener2015.common.web;
+package urlshortener2015.navajowhite.web;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.sql.Date;
 import java.util.UUID;
@@ -12,33 +11,32 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.validator.routines.UrlValidator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.*;
 
-import urlshortener2015.common.domain.Click;
-import urlshortener2015.common.domain.ShortURL;
-import urlshortener2015.common.repository.ClickRepository;
-import urlshortener2015.common.repository.ShortURLRepository;
-
 import com.google.common.hash.Hashing;
+import urlshortener2015.navajowhite.domain.Click;
+import urlshortener2015.navajowhite.domain.ShortURL;
+import urlshortener2015.navajowhite.repository.ClickRepository;
+import urlshortener2015.navajowhite.repository.ShortURLRepository;
 
 @RestController
 public class UrlShortenerController {
-	private static final Logger log = LoggerFactory
-			.getLogger(UrlShortenerController.class);
+
+
 	@Autowired
 	protected ShortURLRepository shortURLRepository;
 
 	@Autowired
 	protected ClickRepository clickRepository;
 
-	@RequestMapping(value = "/{id:(?!link).*}", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/{id:(?!link|index).*}", method = RequestMethod.GET)
 	public ResponseEntity<?> redirectTo(@PathVariable String id,
 			HttpServletRequest request) {
 		ShortURL l = shortURLRepository.findByKey(id);
@@ -54,7 +52,7 @@ public class UrlShortenerController {
 		Click cl = new Click(null, hash, new Date(System.currentTimeMillis()),
 				null, null, null, ip, null);
 		cl=clickRepository.save(cl);
-		log.info(cl!=null?"["+hash+"] saved with id ["+cl.getId()+"]":"["+hash+"] was not saved");
+		//log.info(cl!=null?"["+hash+"] saved with id ["+cl.getId()+"]":"["+hash+"] was not saved");
 	}
 
 	protected String extractIP(HttpServletRequest request) {
