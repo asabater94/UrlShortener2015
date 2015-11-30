@@ -29,13 +29,6 @@ public class UrlShortenerControllerWithLogs extends UrlShortenerController {
 		return super.redirectTo(id, request);
 	}
 
-	@Override
-	@RequestMapping(value = "/{hash:(?!link|index).*}" + "+", method = RequestMethod.GET)
-	public String clicksInfo(@PathVariable String hash, HttpServletRequest request, Model model) throws URISyntaxException {
-		logger.info("Requested info about page with hash " + hash);
-
-		return super.clicksInfo(hash, request, model);
-	}
 
 	@Override
 	public ResponseEntity<ShortURL> shortener(@RequestParam("url") String url,
