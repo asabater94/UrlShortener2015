@@ -14,11 +14,26 @@ $(document).ready(
                         }
                         else {
                             $("#result").html(
-                                "<div class='alert alert-success lead'><a target='_blank' href='"
-                                + msg.uri
-                                + "'>"
-                                + msg.uri
-                                + "</a></div>");
+                                                        "<div class='alert alert-success lead'><a target='_blank' href='"
+                                                        + msg.uri
+                                                        + "'>"
+                                                        + msg.uri
+                                                        + "</a></div>"
+                                                        + "<div class='alert alert-success lead'><a target='_blank' href='"
+                                                                                      + msg.uri
+                                                                                      + "+'>"
+                                                                                      + msg.uri
+                                                                                      + "+</a></div>"
+                                                        + "<div class='alert alert-success lead'><a target='_blank' href='"
+                                                                                    + msg.uri
+                                                                                    + "+JSON'>"
+                                                                                    + msg.uri
+                                                                                    + "+JSON</a></div>"
+                                                        + "<div class='alert alert-success lead'><a target='_blank' href='"
+                                                                                    + msg.uri
+                                                                                    + "+ADMIN'>"
+                                                                                    + msg.uri
+                                                                                    + "+ADMIN</a></div>");
                         }
                     },
                     error : function() {
@@ -27,8 +42,8 @@ $(document).ready(
                     }
                 });
             });
+        $("#publi").submit(     //se crearï¿½ la uri acortada pero iremos a la pagina con publi (++)
 
-        $("#publi").submit(     //se creará la uri acortada pero iremos a la pagina con publi (++)
             function(event) {
                 event.preventDefault();
                 $.ajax({
@@ -37,11 +52,27 @@ $(document).ready(
                    data : $(this).serialize(),
                    success : function(msg) {
                        $("#result").html(
-                            "<div class='alert alert-success lead'><a target='_blank' href='"
-                            + msg.uri
-                            + "++'>"
-                            + msg.uri
-                            + "++</a></div>");
+                                                   "<div class='alert alert-success lead'><a target='_blank' href='"
+                                                   + msg.uri
+                                                   + "++'>"
+                                                   + msg.uri
+                                                   + "++</a></div>"
+                                                   + "<div class='alert alert-success lead'><a target='_blank' href='"
+                                                                                 + msg.uri
+                                                                                 + "+'>"
+                                                                                 + msg.uri
+                                                                                 + "+</a></div>"
+                                                   + "<div class='alert alert-success lead'><a target='_blank' href='"
+                                                                               + msg.uri
+                                                                               + "+JSON'>"
+                                                                               + msg.uri
+                                                                               + "+JSON</a></div>"
+                                                   + "<div class='alert alert-success lead'><a target='_blank' href='"
+                                                                               + msg.uri
+                                                                               + "+ADMIN'>"
+                                                                               + msg.uri
+                                                                               + "+ADMIN</a></div>");
+
                    },
                    error : function() {
                        $("#result").html(

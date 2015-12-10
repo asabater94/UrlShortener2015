@@ -3,12 +3,18 @@ package urlshortener2015.navajowhite.web;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.sql.Date;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -53,16 +59,54 @@ public class UrlShortenerController {
 	}
 
 	protected void createAndSaveClick(String hash, String ip) {
+
+		URL whatismyip = null;
+		BufferedReader inIP = null;
+		String country = null;
+		String position = null;
+		try {
+			whatismyip = new URL("http://ip-api.com/line/" + ip + "?fields=country,city,lat,lon");
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		try {
+			inIP = new BufferedReader(new InputStreamReader(whatismyip.openStream()));
+			country = inIP.readLine();
+			String city = inIP.readLine();
+			position = inIP.readLine() + "," + inIP.readLine();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 		Click cl = new Click(null, hash, new Date(System.currentTimeMillis()),
-				null, null, null, ip, null);
+				null, null, position, ip, country);
 		cl=clickRepository.save(cl);
 		//log.info(cl!=null?"["+hash+"] saved with id ["+cl.getId()+"]":"["+hash+"] was not saved");
 	}
 
 	protected String extractIP(HttpServletRequest request) {
-		return request.getRemoteAddr();
-	}
 
+		URL whatismyip = null;
+		BufferedReader inIP = null;
+		try {
+			whatismyip = new URL("https://api.ipify.org");
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		try {
+			inIP = new BufferedReader(new InputStreamReader(whatismyip.openStream()));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			return inIP.readLine();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+
+	}
 	protected ResponseEntity<?> createSuccessfulRedirectToResponse(ShortURL l) {
 		HttpHeaders h = new HttpHeaders();
 		h.setLocation(URI.create(l.getTarget()));
@@ -129,5 +173,14 @@ public class UrlShortenerController {
 		}
 	}
 
+	@RequestMapping(value = "/{hash:(?!link).*}" + "+JSON")
+	public List<Object> statsJSON(@PathVariable String hash) {
+		ShortURL url = shortURLRepository.findByKey(hash);
+		Long numeroClicks = clickRepository.clicksByHash(hash);
+		List<Object> lista = new LinkedList<>();
+		lista.add(url);
+		lista.add(numeroClicks);
+		return lista;
+	}
 
 }
