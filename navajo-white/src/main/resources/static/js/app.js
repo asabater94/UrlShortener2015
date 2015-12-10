@@ -34,7 +34,6 @@ $(document).ready(
                                                                                     + "+ADMIN'>"
                                                                                     + msg.uri
                                                                                     + "+ADMIN</a></div>");
-
                         }
                     },
                     error : function() {
@@ -43,8 +42,8 @@ $(document).ready(
                     }
                 });
             });
-
         $("#publi").submit(     //se crear� la uri acortada pero iremos a la pagina con publi (++)
+
             function(event) {
                 event.preventDefault();
                 $.ajax({
