@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.validator.routines.UrlValidator;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -29,6 +30,7 @@ import urlshortener2015.navajowhite.repository.ShortURLRepository;
 public class UrlShortenerController {
 
 
+	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(UrlShortenerController.class);
 	@Autowired
 	protected ShortURLRepository shortURLRepository;
 
