@@ -35,6 +35,7 @@ public class UrlShortenerController {
 	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(UrlShortenerController.class);
 
 
+	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(UrlShortenerController.class);
 	@Autowired
 	protected ShortURLRepository shortURLRepository;
 
