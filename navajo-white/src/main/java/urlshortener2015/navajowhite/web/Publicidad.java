@@ -21,7 +21,7 @@ public class Publicidad {
     @Autowired
     protected ShortURLRepository shortURLRepository;
 
-    //mirar si esto hace falta¿?¿?
+    //mirar si esto hace falta
     @RequestMapping("/publicidad")
     public String greeting(@RequestParam(value="name", required=false, defaultValue="World") String name, Model model) {
         model.addAttribute("name",name);

@@ -33,9 +33,6 @@ import urlshortener2015.navajowhite.repository.ShortURLRepository;
 public class UrlShortenerController {
 
 	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(UrlShortenerController.class);
-
-
-	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(UrlShortenerController.class);
 	@Autowired
 	protected ShortURLRepository shortURLRepository;
 
