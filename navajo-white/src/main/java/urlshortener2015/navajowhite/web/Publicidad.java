@@ -16,35 +16,24 @@ import javax.servlet.http.HttpServletRequest;
  * Created by coke on 23/11/2015.
  */
 @Controller
-public class Greeting {
-
-    @Autowired
-    protected ClickRepository clickRepository;
+public class Publicidad {
 
     @Autowired
     protected ShortURLRepository shortURLRepository;
 
-    @RequestMapping("/greeting")
+    //mirar si esto hace falta
+    @RequestMapping("/publicidad")
     public String greeting(@RequestParam(value="name", required=false, defaultValue="World") String name, Model model) {
         model.addAttribute("name",name);
-        return "greeting";
+        return "publicidad";
     }
 
-    @RequestMapping(value = "/{hash:(?!link).*}" + "+")
+    @RequestMapping(value = "/{hash:(?!link).*}" + "++")
     public String stats(@PathVariable String hash,
                         @RequestParam(value="name", required=false, defaultValue="0") String name, Model model) {
-        ShortURL url = shortURLRepository.findByKey(hash);
-        Long numeroClicks = clickRepository.clicksByHash(hash);
-        model.addAttribute("numeroClicks",numeroClicks);
-        model.addAttribute("fechaCreacion",url.getCreated());
-        model.addAttribute("urlDestino",url.getTarget());
-        //Te muestra la plantilla de greeting.html
-        return "greeting";
+       // ShortURL shortURL = shortURLRepository.findByKey(hash);
+        model.addAttribute("hash",hash);
+        //Te muestra la plantilla de publicidad.html
+        return "publicidad";
     }
-
-    @RequestMapping(value = "/{hash:(?!link).*}" + "+ADMIN")
-    public String admin(@PathVariable String hash) {
-        return "adminView";
-    }
-
 }

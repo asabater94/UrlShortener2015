@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>AdminView</title>
+    <!-- PARTE DEL MAPA -->
+    <style>
+        #map {
+        width: 500px;
+        height: 400px;
+        }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
+    <script>
+      function initialize() {
+        var mapCanvas = document.getElementById('map');
+        var mapOptions = {
+          center: new google.maps.LatLng(44.5403, -78.5463),
+          zoom: 8,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        var map = new google.maps.Map(mapCanvas, mapOptions)
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+
+
+    <!-- PARTE DEL INDEX.HTML -->
+    <link rel="stylesheet" type="text/css"
+          href="webjars/bootstrap/3.3.5/css/bootstrap.min.css" />
+    <script type="text/javascript" src="webjars/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript"
+            src="webjars/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+
+    <div class="container-full">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <!-- <form class="col-lg-12" role="form" id="buscador" action="">
+                    <div class="input-group input-group-lg col-sm-offset-4 col-sm-4">
+                        <p>Desde: <input type="text" id="datepickerDesde" name="desde"/></p>
+                        <p>Hasta: <input type="text" id="datepickerHasta" name="hasta"/></p>
+						<span class="input-group-btn"><button
+                                class="btn btn-lg btn-primary" type="submit">Buscar!</button></span>
+                    </div>
+                </form> -->
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <div class="col-sm-offset-4 col-sm-4 text-center">
+                <br />
+                <p>hola, prueba</p>
+                <div id="result" />
+            </div>
+        </div>
+    </div>
+
+
+    <div id="map"></div>
+
+    <button onclick="myFunction()">Click me</button>
+
+<script>
+
+
+    var json = null;
+        $.ajax({
+            'async': false,
+            'global': false,
+            'url': "/e4f06474+LOCATIONS",
+            'dataType': "json",
+            'success': function (data) {
+                 json = data;
+
+             }
+        });
+
+    var jsonsplit = json.split(",");
+    //$("#result").html("<p>" + jsonsplit[0] + "-" + jsonsplit[1] + "</p>");
+    $("#result").html("<p>" + json + "</p>");
+
+    //var i;
+    //var myLatLng;
+        var myLatlng = new google.maps.LatLng(-25.363882,131.044922);
+        var mapOptions = {
+            zoom: 4,
+            center: myLatlng
+           }
+        var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+        var marker = new google.maps.Marker({
+            position: myLatlng,
+            title:"Hello World!"
+        });
+
+        marker.setMap(map);
+
+
+</script>
+
+</body>
+</html>

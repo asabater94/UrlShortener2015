@@ -15,10 +15,11 @@ public class ShortURL {
 	private Boolean safe;
 	private String ip;
 	private String country;
+	private int active;
 
 	public ShortURL(String hash, String target, URI uri, String sponsor,
 			Date created, String owner, Integer mode, Boolean safe, String ip,
-			String country) {
+			String country, int active) {
 		this.hash = hash;
 		this.target = target;
 		this.uri = uri;
@@ -29,6 +30,7 @@ public class ShortURL {
 		this.safe = safe;
 		this.ip = ip;
 		this.country = country;
+		this.active = active;
 	}
 
 	public ShortURL() {
@@ -73,5 +75,9 @@ public class ShortURL {
 	public String getCountry() {
 		return country;
 	}
+
+	public int getActive() { return active; }
+
+	public void setActive(int active) { this.active = active; }
 
 }
