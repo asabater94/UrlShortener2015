@@ -2,13 +2,39 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Pagina de publi</title>
-    <meta http-equiv="Refresh" th:content="'10;url=http://localhost:8080/' + ${hash}"/> #contador para que en 10 seg redirija
+    <meta http-equiv="refresh" th:content="'20;url=' + ${target}"/>
     <meta charset="UTF-8"/>
 </head>
-<body>
+<body onLoad="ini();">
 <div class="col-lg-12 text-center">
     <h1>PÁGINA DE PUBLICIDAD</h1>
 </div>
-<div>En 10 segundos será redirigido</div>
+<div>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/PBEk11JStlU?rel=0&amp;controls=0&amp;autoplay=1&amp;showinfo=0" frameborder="0"></iframe>
+</div>
+<div align="right"><IMG SRC="http://www.homerswebpage.com/flash/tostadora_70px1.gif"/></div>
+<script type="text/javascript">
+var cuentaInicial = "20";
+function fin() {
+}
+
+function unoMenos() {
+with (
+document.forms["cuenta"]["regresiva"]) value = 'Será redireccionado a la página principal en '+cuentaInicial+' segundos.';
+if (
+cuentaInicial-- > 0
+)
+setTimeout("unoMenos()", 1000);
+else fin();
+}
+function ini() {
+with (
+document.forms["cuenta"]["regresiva"]) value = 'Será redireccionado a la página principal en '+cuentaInicial--+' segundos.';
+setTimeout("unoMenos()", 1000);
+}
+</script>
+<form name="cuenta" action="" >
+    <input name="regresiva" type="text" size="55" readonly="" style="border:0px;"/>
+</form>
 </body>
 </html>

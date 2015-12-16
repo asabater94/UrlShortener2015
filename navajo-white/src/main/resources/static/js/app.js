@@ -22,7 +22,7 @@ $(document).ready(
                 });
             });
 
-        $("#publi").submit(     //se creará la uri acortada pero iremos a la pagina con publi (++)
+        $("#publi").submit(
             function(event) {
                 event.preventDefault();
                 $.ajax({
@@ -33,9 +33,9 @@ $(document).ready(
                        $("#result").html(
                             "<div class='alert alert-success lead'><a target='_blank' href='"
                             + msg.uri
-                            + "++'>"
+                            + "'>"
                             + msg.uri
-                            + "++</a></div>");
+                            + "</a></div>");
                    },
                    error : function() {
                        $("#result").html(
@@ -43,4 +43,6 @@ $(document).ready(
                        }
                  });
             });
+
+
     });

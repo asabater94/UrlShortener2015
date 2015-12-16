@@ -21,19 +21,14 @@ public class Publicidad {
     @Autowired
     protected ShortURLRepository shortURLRepository;
 
-    //mirar si esto hace falta¿?¿?
-    @RequestMapping("/publicidad")
-    public String greeting(@RequestParam(value="name", required=false, defaultValue="World") String name, Model model) {
-        model.addAttribute("name",name);
-        return "publicidad";
-    }
-
     @RequestMapping(value = "/{hash:(?!link).*}" + "++")
-    public String stats(@PathVariable String hash,
+    public String publi(@PathVariable String hash,
                         @RequestParam(value="name", required=false, defaultValue="0") String name, Model model) {
-       // ShortURL shortURL = shortURLRepository.findByKey(hash);
-        model.addAttribute("hash",hash);
-        //Te muestra la plantilla de publicidad.html
+
+        ShortURL shortURL = shortURLRepository.findByKey(hash);
+        model.addAttribute("target", shortURL.getTarget().toString());
+
         return "publicidad";
+
     }
 }
