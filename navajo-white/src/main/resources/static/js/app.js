@@ -21,14 +21,14 @@ $(document).ready(
                                                         + "</a></div>"
                                                         + "<div class='alert alert-success lead'><a target='_blank' href='"
                                                                                       + msg.uri
-                                                                                      + "+'>"
+                                                                                      + "+?mediaType=html'>"
                                                                                       + msg.uri
-                                                                                      + "+</a></div>"
+                                                                                      + "+ HTML PAGE</a></div>"
                                                         + "<div class='alert alert-success lead'><a target='_blank' href='"
                                                                                     + msg.uri
-                                                                                    + "+JSON'>"
+                                                                                    + "+?mediaType=json'>"
                                                                                     + msg.uri
-                                                                                    + "+JSON</a></div>"
+                                                                                    + "+ JSON OBJECT</a></div>"
                                                         + "<div class='alert alert-success lead'><a target='_blank' href='"
                                                                                     + msg.uri
                                                                                     + "+ADMIN'>"
@@ -57,21 +57,21 @@ $(document).ready(
                                                    + "++'>"
                                                    + msg.uri
                                                    + "++</a></div>"
-                                                   + "<div class='alert alert-success lead'><a target='_blank' href='"
-                                                                                 + msg.uri
-                                                                                 + "+'>"
-                                                                                 + msg.uri
-                                                                                 + "+</a></div>"
-                                                   + "<div class='alert alert-success lead'><a target='_blank' href='"
-                                                                               + msg.uri
-                                                                               + "+JSON'>"
-                                                                               + msg.uri
-                                                                               + "+JSON</a></div>"
-                                                   + "<div class='alert alert-success lead'><a target='_blank' href='"
-                                                                               + msg.uri
-                                                                               + "+ADMIN'>"
-                                                                               + msg.uri
-                                                                               + "+ADMIN</a></div>");
+                                                        + "<div class='alert alert-success lead'><a target='_blank' href='"
+                                                                                      + msg.uri
+                                                                                      + "+?mediaType=html'>"
+                                                                                      + msg.uri
+                                                                                      + "+ HTML PAGE</a></div>"
+                                                        + "<div class='alert alert-success lead'><a target='_blank' href='"
+                                                                                    + msg.uri
+                                                                                    + "+?mediaType=json'>"
+                                                                                    + msg.uri
+                                                                                    + "+ JSON OBJECT</a></div>"
+                                                        + "<div class='alert alert-success lead'><a target='_blank' href='"
+                                                                                    + msg.uri
+                                                                                    + "+ADMIN'>"
+                                                                                    + msg.uri
+                                                                                    + "+ADMIN</a></div>");
 
                    },
                    error : function() {
@@ -80,4 +80,6 @@ $(document).ready(
                        }
                  });
             });
-    });
+    }
+
+    );

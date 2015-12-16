@@ -158,4 +158,112 @@ public class ClickRepositoryImpl implements ClickRepository {
 		return -1L;
 	}
 
+	@Override
+	public Long clicksByHashAndCountry(String hash, String country) {
+		try {
+			return jdbc
+					.queryForObject("select count(*) from click where hash = ? and country = ?", new Object[]{hash,country}, Long.class);
+		} catch (Exception e) {
+			log.debug("When counting hash "+hash, e);
+		}
+		return null;
+	}
+
+	@Override
+	public List<String> getCountries() {
+		try {
+			return jdbc.queryForList("SELECT DISTINCT country from click", String.class);
+		} catch (Exception e) {
+			log.debug("When DISTINCT country from click ", e);
+			return null;
+		}
+	}
+
+	@Override
+	public Long clicksByHashAndCountryAndDesde(String hash, String country, Date desde) {
+		try {
+			return jdbc
+					.queryForObject("select count(*) from click where hash = ? and country = ? and created > ?", new Object[]{hash,country,desde}, Long.class);
+		} catch (Exception e) {
+			log.debug("When counting hash "+hash, e);
+		}
+		return null;
+	}
+
+	@Override
+	public Long clicksByHashAndCountryAndHasta(String hash, String country, Date hasta) {
+		try {
+			return jdbc
+					.queryForObject("select count(*) from click where hash = ? and country = ? and created < ?", new Object[]{hash,country,hasta}, Long.class);
+		} catch (Exception e) {
+			log.debug("When counting hash "+hash, e);
+		}
+		return null;
+	}
+
+	@Override
+	public Long clicksByHashAndCountryAndDesdeHasta(String hash, String country, Date desde, Date hasta) {
+		try {
+			return jdbc
+					.queryForObject("select count(*) from click where hash = ? and country = ? and created > ? and created < ?", new Object[]{hash,country,desde,hasta}, Long.class);
+		} catch (Exception e) {
+			log.debug("When counting hash "+hash, e);
+		}
+		return null;
+	}
+
+	@Override
+	public Long clicksByHashAndCity(String hash, String city) {
+		try {
+			return jdbc
+					.queryForObject("select count(*) from click where hash = ? and city = ?", new Object[]{hash,city}, Long.class);
+		} catch (Exception e) {
+			log.debug("When counting hash "+hash, e);
+		}
+		return null;
+	}
+
+	@Override
+	public List<String> getCities() {
+		try {
+			return jdbc.queryForList("SELECT DISTINCT city from click", String.class);
+		} catch (Exception e) {
+			log.debug("When DISTINCT country from click ", e);
+			return null;
+		}
+	}
+
+	@Override
+	public Long clicksByHashAndCityAndDesde(String hash, String city, Date desde) {
+		try {
+			return jdbc
+					.queryForObject("select count(*) from click where hash = ? and city = ? and created > ?", new Object[]{hash,city,desde}, Long.class);
+		} catch (Exception e) {
+			log.debug("When counting hash "+hash, e);
+		}
+		return null;
+	}
+
+	@Override
+	public Long clicksByHashAndCityAndHasta(String hash, String city, Date hasta) {
+		try {
+			return jdbc
+					.queryForObject("select count(*) from click where hash = ? and city = ? and created < ?", new Object[]{hash,city,hasta}, Long.class);
+		} catch (Exception e) {
+			log.debug("When counting hash "+hash, e);
+		}
+		return null;
+	}
+
+	@Override
+	public Long clicksByHashAndCityAndDesdeHasta(String hash, String city, Date desde, Date hasta) {
+		try {
+			return jdbc
+					.queryForObject("select count(*) from click where hash = ? and city = ? and created > ? and created < ?", new Object[]{hash,city,desde,hasta}, Long.class);
+		} catch (Exception e) {
+			log.debug("When counting hash "+hash, e);
+		}
+		return null;
+	}
+
 }
