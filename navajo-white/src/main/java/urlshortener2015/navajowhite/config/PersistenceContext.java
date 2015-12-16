@@ -24,5 +24,6 @@ public class PersistenceContext {
 	ClickRepository clickRepository() {
 		return new ClickRepositoryImpl(jdbc);
 	}
-	
+
+
 }

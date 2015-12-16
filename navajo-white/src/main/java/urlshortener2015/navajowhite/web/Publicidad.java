@@ -21,6 +21,7 @@ public class Publicidad {
     @Autowired
     protected ShortURLRepository shortURLRepository;
 
+
     @RequestMapping(value = "/{hash:(?!link).*}" + "++")
     public String publi(@PathVariable String hash,
                         @RequestParam(value="name", required=false, defaultValue="0") String name, Model model) {

@@ -8,12 +8,33 @@ $(document).ready(
                     url : "/link",
                     data : $(this).serialize(),
                     success : function(msg) {
-                        $("#result").html(
-                            "<div class='alert alert-success lead'><a target='_blank' href='"
-                            + msg.uri
-                            + "'>"
-                            + msg.uri
-                            + "</a></div>");
+                        if (msg.active == 0) {
+                            $("#result").html(
+                                "<div class='alert alert-success lead'>Try with a correct URL or try again later</div>");
+                        }
+                        else {
+                            $("#result").html(
+                                                        "<div class='alert alert-success lead'><a target='_blank' href='"
+                                                        + msg.uri
+                                                        + "'>"
+                                                        + msg.uri
+                                                        + "</a></div>"
+                                                        + "<div class='alert alert-success lead'><a target='_blank' href='"
+                                                                                      + msg.uri
+                                                                                      + "+?mediaType=html'>"
+                                                                                      + msg.uri
+                                                                                      + "+ HTML PAGE</a></div>"
+                                                        + "<div class='alert alert-success lead'><a target='_blank' href='"
+                                                                                    + msg.uri
+                                                                                    + "+?mediaType=json'>"
+                                                                                    + msg.uri
+                                                                                    + "+ JSON OBJECT</a></div>"
+                                                        + "<div class='alert alert-success lead'><a target='_blank' href='"
+                                                                                    + msg.uri
+                                                                                    + "+ADMIN'>"
+                                                                                    + msg.uri
+                                                                                    + "+ADMIN</a></div>");
+                        }
                     },
                     error : function() {
                         $("#result").html(
@@ -21,7 +42,6 @@ $(document).ready(
                     }
                 });
             });
-
         $("#publi").submit(
             function(event) {
                 event.preventDefault();
@@ -31,11 +51,27 @@ $(document).ready(
                    data : $(this).serialize(),
                    success : function(msg) {
                        $("#result").html(
-                            "<div class='alert alert-success lead'><a target='_blank' href='"
-                            + msg.uri
-                            + "'>"
-                            + msg.uri
-                            + "</a></div>");
+                                                   "<div class='alert alert-success lead'><a target='_blank' href='"
+                                                   + msg.uri
+                                                   + "'>"
+                                                   + msg.uri
+                                                   + "</a></div>"
+                                                        + "<div class='alert alert-success lead'><a target='_blank' href='"
+                                                                                      + msg.uri
+                                                                                      + "+?mediaType=html'>"
+                                                                                      + msg.uri
+                                                                                      + "+ HTML PAGE</a></div>"
+                                                        + "<div class='alert alert-success lead'><a target='_blank' href='"
+                                                                                    + msg.uri
+                                                                                    + "+?mediaType=json'>"
+                                                                                    + msg.uri
+                                                                                    + "+ JSON OBJECT</a></div>"
+                                                        + "<div class='alert alert-success lead'><a target='_blank' href='"
+                                                                                    + msg.uri
+                                                                                    + "+ADMIN'>"
+                                                                                    + msg.uri
+                                                                                    + "+ADMIN</a></div>");
+
                    },
                    error : function() {
                        $("#result").html(
@@ -43,6 +79,5 @@ $(document).ready(
                        }
                  });
             });
-
-
     });
+

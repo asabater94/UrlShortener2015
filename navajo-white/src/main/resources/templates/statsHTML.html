@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>URL Shortener</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css"
+          href="webjars/bootstrap/3.3.5/css/bootstrap.min.css" />
+    <script type="text/javascript" src="webjars/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript"
+            src="webjars/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<div class="container-full">
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <h1>URL Shortener HTML STATS PAGE</h1>
+            <h1 th:text="${hash}" name="hash" id="hash"/>
+            <br/>
+        </div>
+    </div>
+
+    <br/>
+
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <div class="col-sm-offset-4 col-sm-4 text-center">
+
+                <ul class="list-group">
+                    <li class="list-group-item">Numero de clicks
+                        <span class="glyphicon glyphicon-hand-up pull-left" aria-hidden="true"></span>
+                        <span class="badge pull-right" th:text="${numeroClicks}"></span>
+                    </li>
+                    <li class="list-group-item">Fecha de creación
+                        <span class="glyphicon glyphicon-info-sign pull-left" aria-hidden="true"></span>
+                        <span class="badge pull-right" th:text="${fechaCreacion}" ></span>
+
+                    </li>
+                    <li class="list-group-item">Url Destino
+                        <span class="badge pull-right" th:text="${urlDestino}"></span>
+                        <span class="glyphicon glyphicon-link pull-left" aria-hidden="true"></span>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -3,19 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/UrlShortener2015.iml" filepath="$PROJECT_DIR$/UrlShortener2015.iml" />
-      <module fileurl="file://$PROJECT_DIR$/alizarin-crimson/alizarin-crimson.iml" filepath="$PROJECT_DIR$/alizarin-crimson/alizarin-crimson.iml" />
-      <module fileurl="file://$PROJECT_DIR$/bangladesh-green/bangladesh-green.iml" filepath="$PROJECT_DIR$/bangladesh-green/bangladesh-green.iml" />
-      <module fileurl="file://$PROJECT_DIR$/candy-pink/candy-pink.iml" filepath="$PROJECT_DIR$/candy-pink/candy-pink.iml" />
-      <module fileurl="file://$PROJECT_DIR$/common/common.iml" filepath="$PROJECT_DIR$/common/common.iml" />
-      <module fileurl="file://$PROJECT_DIR$/demo/demo.iml" filepath="$PROJECT_DIR$/demo/demo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/dim-gray/dim-gray.iml" filepath="$PROJECT_DIR$/dim-gray/dim-gray.iml" />
-      <module fileurl="file://$PROJECT_DIR$/eerie-black/eerie-black.iml" filepath="$PROJECT_DIR$/eerie-black/eerie-black.iml" />
-      <module fileurl="file://$PROJECT_DIR$/fuzzy-wuzzy/fuzzy-wuzzy.iml" filepath="$PROJECT_DIR$/fuzzy-wuzzy/fuzzy-wuzzy.iml" />
-      <module fileurl="file://$PROJECT_DIR$/golden-brown/golden-brown.iml" filepath="$PROJECT_DIR$/golden-brown/golden-brown.iml" />
-      <module fileurl="file://$PROJECT_DIR$/heat-wave/heat-wave.iml" filepath="$PROJECT_DIR$/heat-wave/heat-wave.iml" />
-      <module fileurl="file://$PROJECT_DIR$/imperial-red/imperial-red.iml" filepath="$PROJECT_DIR$/imperial-red/imperial-red.iml" />
-      <module fileurl="file://$PROJECT_DIR$/japanese-violet/japanese-violet.iml" filepath="$PROJECT_DIR$/japanese-violet/japanese-violet.iml" />
-      <module fileurl="file://$PROJECT_DIR$/lavender-gray/lavender-gray.iml" filepath="$PROJECT_DIR$/lavender-gray/lavender-gray.iml" />
       <module fileurl="file://$PROJECT_DIR$/navajo-white/navajo-white.iml" filepath="$PROJECT_DIR$/navajo-white/navajo-white.iml" />
     </modules>
   </component>
