@@ -15,6 +15,7 @@ import java.nio.charset.StandardCharsets;
 import java.sql.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -44,6 +45,7 @@ public class UrlShortenerController {
 
 	@Autowired
 	protected ClickRepository clickRepository;
+
 
 
 	@RequestMapping(value = "/{id:(?!link|index).*}", method = RequestMethod.GET)
@@ -171,16 +173,6 @@ public class UrlShortenerController {
 		} else {
 			return null;
 		}
-	}
-
-	@RequestMapping(value = "/{hash:(?!link).*}" + "+JSON")
-	public List<Object> statsJSON(@PathVariable String hash) {
-		ShortURL url = shortURLRepository.findByKey(hash);
-		Long numeroClicks = clickRepository.clicksByHash(hash);
-		List<Object> lista = new LinkedList<>();
-		lista.add(url);
-		lista.add(numeroClicks);
-		return lista;
 	}
 
 }
