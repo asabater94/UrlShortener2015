@@ -69,8 +69,8 @@ public class UrlShortenerControllerPubli {
                     .hashString(url, StandardCharsets.UTF_8).toString();
             ShortURL su = new ShortURL(id, url,
                     linkTo(
-                            methodOn(UrlShortenerController.class).redirectTo(
-                                    id, null)).toUri(), sponsor, new Date(
+                            methodOn(UrlShortenerController.class).redirectTo(  //guardo con publicidad
+                                    id, null)).toUri(), "SI", new Date(
                     System.currentTimeMillis()), owner,
                     HttpStatus.TEMPORARY_REDIRECT.value(), true, ip, null,0);
             return shortURLRepository.save(su);

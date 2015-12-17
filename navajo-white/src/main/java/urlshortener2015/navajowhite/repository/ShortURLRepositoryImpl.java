@@ -62,6 +62,9 @@ public class ShortURLRepositoryImpl implements ShortURLRepository {
 					su.getCreated(), su.getOwner(), su.getMode(), su.getSafe(),
 					su.getIP(), su.getCountry(), su.getActive());
 		} catch (DuplicateKeyException e) {
+			jdbc.update("UPDATE shorturl SET sponsor = ?",
+			su.getSponsor());	//MODIFICAMOS EL CAMPO PUBLICIDAD SI ACORTAMOS CON PUBLICIDAD
+								// DESPUES DE YA HABER ACORTADO SIN PUBLICIDAD
 			log.debug("When insert for key " + su.getHash(), e);
 			return su;
 		} catch (Exception e) {

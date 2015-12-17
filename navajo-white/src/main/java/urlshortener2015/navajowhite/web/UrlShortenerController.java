@@ -54,8 +54,16 @@ public class UrlShortenerController {
 		ShortURL l = shortURLRepository.findByKey(id);
 		if (l != null) {
 			createAndSaveClick(id, extractIP(request));
-			return createSuccessfulRedirectToResponse(l);
-		} else {
+			if (l.getSponsor().equals("NO")) {	//vamos a la direccion normal
+				return createSuccessfulRedirectToResponse(l);
+			} else {	//vamos a la direccion con "++" para que vaya a la publi
+				HttpHeaders h = new HttpHeaders();
+				h.setLocation(URI.create(l.getHash() + "++"));
+				return new ResponseEntity<>(h, HttpStatus.valueOf(l.getMode()));
+
+			}
+		}
+		else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
@@ -166,7 +174,7 @@ public class UrlShortenerController {
 			ShortURL su = new ShortURL(id, url,
 					linkTo(
 							methodOn(UrlShortenerController.class).redirectTo(
-									id, null)).toUri(), sponsor, new Date(
+									id, null)).toUri(), "NO", new Date(
 							System.currentTimeMillis()), owner,
 					HttpStatus.TEMPORARY_REDIRECT.value(), true, ip, null, 1);
 			return shortURLRepository.save(su);
