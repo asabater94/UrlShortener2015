@@ -7,15 +7,11 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.sql.Date;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,6 +24,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import com.google.common.hash.Hashing;
@@ -46,13 +43,15 @@ public class UrlShortenerController {
 	@Autowired
 	protected ClickRepository clickRepository;
 
+	@Autowired
+	protected CheckActive checkActvive;
 
 
 	@RequestMapping(value = "/{id:(?!link|index).*}", method = RequestMethod.GET)
 	public ResponseEntity<?> redirectTo(@PathVariable String id,
 			HttpServletRequest request) {
 		ShortURL l = shortURLRepository.findByKey(id);
-		if (l != null) {
+		if (l != null && l.getActive() == 1) {
 			createAndSaveClick(id, extractIP(request));
 			if (l.getSponsor().equals("NO")) {	//vamos a la direccion normal
 				return createSuccessfulRedirectToResponse(l);
@@ -60,11 +59,12 @@ public class UrlShortenerController {
 				HttpHeaders h = new HttpHeaders();
 				h.setLocation(URI.create(l.getHash() + "++"));
 				return new ResponseEntity<>(h, HttpStatus.valueOf(l.getMode()));
-
 			}
 		}
 		else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			//return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+			throw new NotFoundException();
 		}
 	}
 
@@ -92,6 +92,11 @@ public class UrlShortenerController {
 				null, null, position, ip, country);
 		cl=clickRepository.save(cl);
 		//log.info(cl!=null?"["+hash+"] saved with id ["+cl.getId()+"]":"["+hash+"] was not saved");
+	}
+
+	@RequestMapping(value = "/NOT_FOUND")
+	public String notFound(Model model) {
+		return "publicidad";
 	}
 
 	protected String extractIP(HttpServletRequest request) {
@@ -125,15 +130,16 @@ public class UrlShortenerController {
 
 	@RequestMapping(value = "/link", method = RequestMethod.POST)
 	public ResponseEntity<ShortURL> shortener(@RequestParam("url") String url,
-			@RequestParam(value = "sponsor", required = false) String sponsor,
-			@RequestParam(value = "brand", required = false) String brand,
-			HttpServletRequest request) {
+											  @RequestParam(value = "sponsor", required = false) String sponsor,
+											  @RequestParam(value = "brand", required = false) String brand,
+											  HttpServletRequest request) {
 
+		// Create new URL with update_status = 2
 		ShortURL su = createAndSaveIfValid(url, sponsor, brand, UUID
 				.randomUUID().toString(), extractIP(request));
 
 		if (su != null) {		// Valid URL
-			try {
+			/*try {
 				logger.info("URL " + url);
 				URL urlServer = new URL(url);
 				HttpURLConnection urlConn = (HttpURLConnection) urlServer.openConnection();
@@ -151,7 +157,12 @@ public class UrlShortenerController {
 			catch (IOException e) {
 				logger.error("IOException -> " + url);
 			}
-			su.setActive(0);
+			su.setActive(0);*/
+
+
+			checkActvive.addNewURL(su);
+			logger.debug("URL created -> " + url);
+
 			HttpHeaders h = new HttpHeaders();
 			h.setLocation(su.getUri());
 			return new ResponseEntity<>(su, h, HttpStatus.CREATED);
@@ -165,7 +176,7 @@ public class UrlShortenerController {
 	}
 
 	protected ShortURL createAndSaveIfValid(String url, String sponsor,
-			String brand, String owner, String ip) {
+											String brand, String owner, String ip) {
 		UrlValidator urlValidator = new UrlValidator(new String[] { "http",
 				"https" });
 		if (urlValidator.isValid(url)) {
@@ -175,8 +186,10 @@ public class UrlShortenerController {
 					linkTo(
 							methodOn(UrlShortenerController.class).redirectTo(
 									id, null)).toUri(), "NO", new Date(
-							System.currentTimeMillis()), owner,
-					HttpStatus.TEMPORARY_REDIRECT.value(), true, ip, null, 1);
+					System.currentTimeMillis()), owner,
+					HttpStatus.TEMPORARY_REDIRECT.value(), true, ip, null, 0);
+			su.setUpdate_status(2);
+
 			return shortURLRepository.save(su);
 		} else {
 			return null;

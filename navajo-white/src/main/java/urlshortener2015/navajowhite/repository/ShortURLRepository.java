@@ -2,6 +2,7 @@ package urlshortener2015.navajowhite.repository;
 
 import urlshortener2015.navajowhite.domain.ShortURL;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public interface ShortURLRepository {
@@ -22,4 +23,5 @@ public interface ShortURLRepository {
 
 	List<ShortURL> list(Long limit, Long offset);
 
+	List<ShortURL> listToUpdate(Timestamp minTimestamp);
 }
