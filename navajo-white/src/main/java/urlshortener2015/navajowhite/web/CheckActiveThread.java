@@ -43,7 +43,7 @@ public class CheckActiveThread implements Runnable {
                     urlServer = new URL(s.getTarget());
 
                     HttpURLConnection urlConn = (HttpURLConnection) urlServer.openConnection();
-                    urlConn.setConnectTimeout(3000); //<- 3 Seconds Timeout
+                    urlConn.setConnectTimeout(5000); //<- 5 Seconds Timeout
                     urlConn.connect();
                     if (urlConn.getResponseCode() == 200) {		// URL reachable
                         s.setActive(1);
@@ -58,7 +58,7 @@ public class CheckActiveThread implements Runnable {
                 s.setLastChange(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()));
                 s.setUpdate_status(0);              // ROW status updated
                 shortURLRepository.update(s);
-                Thread.sleep(4000);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

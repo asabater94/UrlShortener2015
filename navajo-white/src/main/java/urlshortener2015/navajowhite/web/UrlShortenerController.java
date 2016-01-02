@@ -161,7 +161,6 @@ public class UrlShortenerController {
 
 
 			checkActvive.addNewURL(su);
-			logger.debug("URL created -> " + url);
 
 			HttpHeaders h = new HttpHeaders();
 			h.setLocation(su.getUri());

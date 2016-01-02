@@ -18,7 +18,7 @@ public class CheckActive implements InitializingBean {
 
     @Autowired
     private ShortURLRepository shortURLRepository;
-    private final int NUM_THREADS = 1;                  // Number of threads checking urls
+    private final int NUM_THREADS = 2;                  // Number of threads checking urls
     private final int TIME_DIFF = 5*60*1000;            // Min time difference between two active checks (ms)
 
     private BlockingQueue<ShortURL> queue;
@@ -36,12 +36,14 @@ public class CheckActive implements InitializingBean {
     }
 
 
-    @Scheduled(fixedRate = 5000)
+    @Scheduled(fixedRate = 10000)
     public void reportCurrentTime() {
 
         java.sql.Timestamp minTimestamp = new java.sql.Timestamp(Calendar.getInstance().getTime().getTime() - TIME_DIFF);
         //System.out.println( new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()) + "   " + minTimestamp);
         List<ShortURL> list = shortURLRepository.listToUpdate(minTimestamp);
+
+        //System.out.println("URLs found: " + list);
 
         for (ShortURL s:list) {
             //System.out.println("Puting " + s.getTarget() + "   " + currentTimestamp + "   " + s.getLastChange());
@@ -53,9 +55,10 @@ public class CheckActive implements InitializingBean {
 
            // if (diff >= TIME_DIFF) {
                 try {
-                    System.out.println("Puting " + s.getTarget() + "   " +
-                            minTimestamp + "   " + s.getLastChange() + "   " + s.getActive());
+
                     s.setUpdate_status(1);      // Updating active URL
+                    System.out.println("Puting " + s.getTarget() + "   activo:" + s.getActive() + " size:" + queue.size() + " status:" + s.getUpdate_status());
+
                     shortURLRepository.update(s);
                     queue.put(s);
                 } catch (InterruptedException e) {
@@ -70,11 +73,29 @@ public class CheckActive implements InitializingBean {
      * Adds a new ShortURL to the queue
      */
     public void addNewURL(ShortURL url) {
+        System.out.println("URL created -> " + url.getTarget());
         try {
+            Object[] array = queue.toArray();
+            //System.out.println("--------------------------------------------");
+           // printArray(array);
             queue.put(url);
+            Object[] array2 = queue.toArray();
+            //printArray(array2);
+            //System.out.println("--------------------------------------------");
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+
+    private void printArray(Object[] array) {
+        for (Object o:array) {
+            ShortURL s = (ShortURL) o;
+
+            System.out.println("\t " + s.getTarget() + "\t" + s.getHash() + "\t" + s.getUpdate_status() + "\tsize:" + queue.size() + "\tactivo:" + s.getActive());
+        }
+        System.out.println();
     }
 
 

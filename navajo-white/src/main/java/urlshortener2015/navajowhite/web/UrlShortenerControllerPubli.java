@@ -56,7 +56,6 @@ public class UrlShortenerControllerPubli {
                 .randomUUID().toString(), extractIP(request));
         if (su != null) {
             checkActvive.addNewURL(su);
-            logger.debug("URL created -> " + url);
 
             HttpHeaders h = new HttpHeaders();
             h.setLocation(su.getUri());
