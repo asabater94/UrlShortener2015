@@ -1,9 +1,20 @@
 package urlshortener2015.navajowhite.web;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+import com.google.common.hash.Hashing;
+import org.apache.commons.validator.routines.UrlValidator;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import urlshortener2015.navajowhite.domain.Click;
+import urlshortener2015.navajowhite.domain.ShortURL;
+import urlshortener2015.navajowhite.repository.ClickRepository;
+import urlshortener2015.navajowhite.repository.ShortURLRepository;
 
-
+import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -14,24 +25,8 @@ import java.nio.charset.StandardCharsets;
 import java.sql.Date;
 import java.util.UUID;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.commons.validator.routines.UrlValidator;
-
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import com.google.common.hash.Hashing;
-import urlshortener2015.navajowhite.domain.Click;
-import urlshortener2015.navajowhite.domain.ShortURL;
-import urlshortener2015.navajowhite.repository.ClickRepository;
-import urlshortener2015.navajowhite.repository.ShortURLRepository;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
 public class UrlShortenerController {
@@ -73,6 +68,7 @@ public class UrlShortenerController {
 		URL whatismyip = null;
 		BufferedReader inIP = null;
 		String country = null;
+		String city = null;
 		String position = null;
 		try {
 			whatismyip = new URL("http://ip-api.com/line/" + ip + "?fields=country,city,lat,lon");
@@ -82,14 +78,14 @@ public class UrlShortenerController {
 		try {
 			inIP = new BufferedReader(new InputStreamReader(whatismyip.openStream()));
 			country = inIP.readLine();
-			String city = inIP.readLine();
+			city = inIP.readLine();
 			position = inIP.readLine() + "," + inIP.readLine();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 		Click cl = new Click(null, hash, new Date(System.currentTimeMillis()),
-				null, null, position, ip, country);
+				null, null, position, ip, country, city);
 		cl=clickRepository.save(cl);
 		//log.info(cl!=null?"["+hash+"] saved with id ["+cl.getId()+"]":"["+hash+"] was not saved");
 	}
