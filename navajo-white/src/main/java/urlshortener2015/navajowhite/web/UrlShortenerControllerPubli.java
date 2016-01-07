@@ -30,6 +30,9 @@ public class UrlShortenerControllerPubli {
     @Autowired
     protected ShortURLRepository shortURLRepository;
 
+    @Autowired
+    protected CheckActive checkActvive;
+
     protected String extractIP(HttpServletRequest request) {
         return request.getRemoteAddr();
     }
@@ -61,6 +64,8 @@ public class UrlShortenerControllerPubli {
         ShortURL su = createAndSaveIfValid(url, sponsor, brand, UUID
                 .randomUUID().toString(), extractIP(request));
         if (su != null) {
+            checkActvive.addNewURL(su);
+
             HttpHeaders h = new HttpHeaders();
             h.setLocation(su.getUri());
             return new ResponseEntity<>(su, h, HttpStatus.CREATED);
@@ -82,6 +87,8 @@ public class UrlShortenerControllerPubli {
                                     id, null)).toUri(), "SI", new Date(
                     System.currentTimeMillis()), owner,
                     HttpStatus.TEMPORARY_REDIRECT.value(), true, ip, null,0);
+            su.setUpdate_status(2);
+
             return shortURLRepository.save(su);
         } else {
             return null;

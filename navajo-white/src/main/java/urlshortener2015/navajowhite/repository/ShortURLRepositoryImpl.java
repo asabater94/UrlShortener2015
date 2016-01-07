@@ -13,6 +13,8 @@ import urlshortener2015.navajowhite.domain.ShortURL;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
@@ -29,7 +31,8 @@ public class ShortURLRepositoryImpl implements ShortURLRepository {
 					null, rs.getString("sponsor"), rs.getDate("created"),
 					rs.getString("owner"), rs.getInt("mode"),
 					rs.getBoolean("safe"), rs.getString("ip"),
-					rs.getString("country"), rs.getInt("active"));
+					rs.getString("country"), rs.getTimestamp("last_change"),
+					rs.getInt("active"), rs.getInt("update_status"));
 		}
 	};
 
@@ -56,18 +59,24 @@ public class ShortURLRepositoryImpl implements ShortURLRepository {
 
 	@Override
 	public ShortURL save(ShortURL su) {
+		if (su.getLastChange() == null) {
+			java.sql.Timestamp currentTimestamp = new java.sql.Timestamp(Calendar.getInstance().getTime().getTime());
+			su.setLastChange(currentTimestamp);
+		}
+
 		try {
-			jdbc.update("INSERT INTO shorturl VALUES (?,?,?,?,?,?,?,?,?,?)",
+			jdbc.update("INSERT INTO shorturl VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
 					su.getHash(), su.getTarget(), su.getSponsor(),
 					su.getCreated(), su.getOwner(), su.getMode(), su.getSafe(),
-					su.getIP(), su.getCountry(), su.getActive());
+					su.getIP(), su.getCountry(), su.getLastChange(), su.getActive(), su.getUpdate_status());
 		} catch (DuplicateKeyException e) {
 			jdbc.update("UPDATE shorturl SET sponsor = ?",
-			su.getSponsor());	//MODIFICAMOS EL CAMPO PUBLICIDAD SI ACORTAMOS CON PUBLICIDAD
-								// DESPUES DE YA HABER ACORTADO SIN PUBLICIDAD
+					su.getSponsor());	//MODIFICAMOS EL CAMPO PUBLICIDAD SI ACORTAMOS CON PUBLICIDAD
+			// DESPUES DE YA HABER ACORTADO SIN PUBLICIDAD
 			log.debug("When insert for key " + su.getHash(), e);
 			return su;
 		} catch (Exception e) {
+			System.out.println("ERROR WHEN INSERT");
 			log.debug("When insert", e);
 			return null;
 		}
@@ -93,10 +102,13 @@ public class ShortURLRepositoryImpl implements ShortURLRepository {
 	public void update(ShortURL su) {
 		try {
 			jdbc.update(
-					"update shorturl set target=?, sponsor=?, created=?, owner=?, mode=?, safe=?, ip=?, country=?, active=? where hash=?",
+					"update shorturl set target=?, sponsor=?, created=?," +
+							" owner=?, mode=?, safe=?, ip=?, country=?, " +
+							"last_change=?, active=?, update_status=? where hash=?",
 					su.getTarget(), su.getSponsor(), su.getCreated(),
 					su.getOwner(), su.getMode(), su.getSafe(), su.getIP(),
-					su.getCountry(), su.getHash(), su.getActive());
+					su.getCountry(), su.getLastChange(),
+					su.getActive(), su.getUpdate_status(), su.getHash());
 		} catch (Exception e) {
 			log.debug("When update for hash " + su.getHash(), e);
 		}
@@ -130,6 +142,20 @@ public class ShortURLRepositoryImpl implements ShortURLRepository {
 		} catch (Exception e) {
 			log.debug("When select for limit " + limit + " and offset "
 					+ offset, e);
+			return null;
+		}
+	}
+
+	/**
+	 * Returns the ShortURL whose last_change has been more than TIME_DIFF
+	 * milliseconds ago
+	 */
+	public List<ShortURL> listToUpdate(Timestamp t) {
+		try {
+			return jdbc.query("SELECT * FROM shorturl WHERE update_status = 0 AND last_change < ?",
+					new Object[] { t }, rowMapper);
+		} catch (Exception e) {
+			log.debug("When select to update", e);
 			return null;
 		}
 	}

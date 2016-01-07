@@ -15,7 +15,9 @@ CREATE TABLE SHORTURL(
 	SAFE		BOOLEAN,						-- Safe target
 	IP			VARCHAR(20),				-- IP
 	COUNTRY		VARCHAR(50),					-- Country
-    ACTIVE      INT
+	LAST_CHANGE TIMESTAMP NULL,
+    ACTIVE      INT,
+    UPDATE_STATUS INT
 );
 
 -- Click
