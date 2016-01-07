@@ -24,7 +24,7 @@ import java.util.List;
  * Created by coke on 23/11/2015.
  */
 @Controller
-public class Greeting {
+public class ControllerStats {
 
     @Autowired
     protected ClickRepository clickRepository;

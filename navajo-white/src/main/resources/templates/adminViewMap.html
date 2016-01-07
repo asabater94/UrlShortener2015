@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" >
+<head>
+<title>URL Shortener</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+	<!-- EVITAMOS BARRAS SCROLL -->
+	<style type="text/css">
+		body {
+		overflow:hidden;
+		}
+	</style>
+
+	<!-- PARTE DEL MAPA -->
+	<style>
+		#map {
+		width: 100%;
+		height: 400px;
+		margin: 0;
+		padding: 0;
+		}
+		#map {
+		position: relative;
+		}
+	</style>
+	<script src="https://maps.googleapis.com/maps/api/js"></script>
+	<script>
+      function initialize() {
+        var mapCanvas = document.getElementById('map');
+        var mapOptions = {
+          center: new google.maps.LatLng(44.5403, -78.5463),
+          zoom: 8,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        var map = new google.maps.Map(mapCanvas, mapOptions)
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+
+<link rel="stylesheet" type="text/css"
+	href="webjars/bootstrap/3.3.5/css/bootstrap.min.css" />
+<script type="text/javascript"
+	src="webjars/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+	<div class="container-full">
+		<div class="row">
+			<div class="col-lg-12 text-center">
+				<h1>URL Shortener ADMIN PAGE</h1>
+                <h1 th:text="${hash}" name="hash" id="hash"/>
+				<br/>
+				<form class="col-lg-12" role="form" id="stats" action="">
+					<div class="input-group input-group-lg col-sm-offset-4 col-sm-4">
+						<input type="text" class="center-block form-control input-lg"
+							title="Enter a Starting Date" placeholder="Starting Date DD/MM/YYYY" name="desde"/>
+                        <input type="text" class="center-block form-control input-lg"
+                               title="Enter a Ending Date" placeholder="Ending Date DD/MM/YYYY" name="hasta"/>
+                        <select id="type" name="type" class="center-block form-control input-lg">
+                            <option value="Countries">Search by: Countries</option>
+                            <option value="Cities">Search by: Cities</option>
+                        </select>
+					</div>
+                    <br/>
+                    <span class="input-group-btn"><button
+                            class="btn btn-lg btn-primary" >Show me! (HTML)</button></span>
+
+					<span class="input-group-btn">
+						<button class="btn btn-lg btn-primary" name="mediaType" type="submit" value="json">Show me! (JSON)</button>
+					</span>
+
+				</form>
+			</div>
+		</div>
+
+		<br/>
+
+		<div class="row">
+			<div class="col-lg-12 text-center">
+				<div class="col-sm-offset-4 col-sm-4 text-center">
+
+					<div th:if="${lista != null}" class="panel panel-default">
+						<div class="panel-heading">Estadisticas</div>
+						<table style="width:100%" class="table">
+							<tr>
+								<td th:text="${type}"></td>
+								<td>Number of Clicks</td>
+							</tr>
+							<tr th:each="Info : ${lista}">
+								<td th:text="${Info.site}"></td>
+								<td th:text="${Info.clicks}"></td>
+							</tr>
+						</table>
+					</div>
+
+                    <div th:if="${error != null}" class='alert alert-danger lead'><p th:text="${error}" /></div>
+
+                    <p th:if="${desde != null}" th:text="'desde, ' + ${desde}" />
+                    <p th:if="${hasta != null}" th:text="'hasta, ' + ${hasta} " />
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+		<div id="map"></div>
+
+</body>
+</html>
