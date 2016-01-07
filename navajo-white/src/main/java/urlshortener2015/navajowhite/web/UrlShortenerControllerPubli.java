@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import urlshortener2015.navajowhite.domain.ShortURL;
 import urlshortener2015.navajowhite.repository.ShortURLRepository;
 
@@ -40,6 +37,18 @@ public class UrlShortenerControllerPubli {
         return request.getRemoteAddr();
     }
 
+
+    @RequestMapping(value = "/redireccion/{id}", method = RequestMethod.GET)
+    public ResponseEntity<?> redirectTo(@PathVariable String id,
+                                        HttpServletRequest request) {
+
+        ShortURL l = shortURLRepository.findByKey(id);
+        HttpHeaders h = new HttpHeaders();
+        return new ResponseEntity<>(l.getTarget(), h, HttpStatus.OK);
+
+
+
+    }
 
     protected ResponseEntity<?> createSuccessfulRedirectToResponse(ShortURL l) {
         HttpHeaders h = new HttpHeaders();
