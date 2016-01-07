@@ -28,6 +28,7 @@ public class Publicidad {
 
         ShortURL shortURL = shortURLRepository.findByKey(hash);
         model.addAttribute("target", shortURL.getTarget().toString());
+        model.addAttribute("hash", hash);
 
         return "publicidad";
 
