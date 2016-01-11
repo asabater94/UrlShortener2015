@@ -63,6 +63,12 @@ public class UrlShortenerController {
 		}
 	}
 
+	/**
+	 * Metodo encargado de almacenar los clicks en la base de datos. HAce uso de un
+	 * servicio externo (ip-api.com) para extraer la city, country, latitud y longitud
+	 * @param hash identificador de la url acortada
+	 * @param ip ip de la peticion
+     */
 	protected void createAndSaveClick(String hash, String ip) {
 
 		URL whatismyip = null;
@@ -95,8 +101,12 @@ public class UrlShortenerController {
 		return "publicidad";
 	}
 
+	/**
+	 * Metodo encargado de extraer la IP de una Request
+	 * @param request peticion de la que sacar la IP
+	 * @return IP de la request
+     */
 	protected String extractIP(HttpServletRequest request) {
-
 		URL whatismyip = null;
 		BufferedReader inIP = null;
 		try {
@@ -116,8 +126,8 @@ public class UrlShortenerController {
 			e.printStackTrace();
 		}
 		return null;
-
 	}
+
 	protected ResponseEntity<?> createSuccessfulRedirectToResponse(ShortURL l) {
 		HttpHeaders h = new HttpHeaders();
 		h.setLocation(URI.create(l.getTarget()));
@@ -135,26 +145,6 @@ public class UrlShortenerController {
 				.randomUUID().toString(), extractIP(request));
 
 		if (su != null) {		// Valid URL
-			/*try {
-				logger.info("URL " + url);
-				URL urlServer = new URL(url);
-				HttpURLConnection urlConn = (HttpURLConnection) urlServer.openConnection();
-				urlConn.setConnectTimeout(3000); //<- 3 Seconds Timeout
-				urlConn.connect();
-				if (urlConn.getResponseCode() == 200) {		// URL reachable
-					HttpHeaders h = new HttpHeaders();
-					h.setLocation(su.getUri());
-					return new ResponseEntity<>(su, h, HttpStatus.CREATED);
-				} else {				// URL unreachable
-					logger.error("URL unreachable -> " + url);
-
-				}
-			}
-			catch (IOException e) {
-				logger.error("IOException -> " + url);
-			}
-			su.setActive(0);*/
-
 
 			checkActvive.addNewURL(su);
 
