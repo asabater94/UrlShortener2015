@@ -32,7 +32,7 @@ public class ShortURLRepositoryImpl implements ShortURLRepository {
 					rs.getString("owner"), rs.getInt("mode"),
 					rs.getBoolean("safe"), rs.getString("ip"),
 					rs.getString("country"), rs.getTimestamp("last_change"),
-					rs.getInt("active"), rs.getInt("update_status"));
+					rs.getInt("active"), rs.getInt("update_status"), rs.getTimestamp("lastReachable"));
 		}
 	};
 
@@ -65,10 +65,10 @@ public class ShortURLRepositoryImpl implements ShortURLRepository {
 		}
 
 		try {
-			jdbc.update("INSERT INTO shorturl VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
+			jdbc.update("INSERT INTO shorturl VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
 					su.getHash(), su.getTarget(), su.getSponsor(),
 					su.getCreated(), su.getOwner(), su.getMode(), su.getSafe(),
-					su.getIP(), su.getCountry(), su.getLastChange(), su.getActive(), su.getUpdate_status());
+					su.getIP(), su.getCountry(), su.getLastChange(), su.getActive(), su.getUpdate_status(), su.getLastReachable());
 		} catch (DuplicateKeyException e) {
 			jdbc.update("UPDATE shorturl SET sponsor = ?",
 					su.getSponsor());	//MODIFICAMOS EL CAMPO PUBLICIDAD SI ACORTAMOS CON PUBLICIDAD
@@ -104,11 +104,11 @@ public class ShortURLRepositoryImpl implements ShortURLRepository {
 			jdbc.update(
 					"update shorturl set target=?, sponsor=?, created=?," +
 							" owner=?, mode=?, safe=?, ip=?, country=?, " +
-							"last_change=?, active=?, update_status=? where hash=?",
+							"last_change=?, active=?, update_status=?, lastReachable=? where hash=?",
 					su.getTarget(), su.getSponsor(), su.getCreated(),
 					su.getOwner(), su.getMode(), su.getSafe(), su.getIP(),
 					su.getCountry(), su.getLastChange(),
-					su.getActive(), su.getUpdate_status(), su.getHash());
+					su.getActive(), su.getUpdate_status(), su.getLastReachable(), su.getHash());
 		} catch (Exception e) {
 			log.debug("When update for hash " + su.getHash(), e);
 		}

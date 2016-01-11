@@ -5,8 +5,11 @@ package urlshortener2015.navajowhite.web;
  */
 public class NotFoundException extends RuntimeException {
 
-    public NotFoundException() {
+    private String text;
 
+    public NotFoundException(String text) {
+        this.text = text;
     }
 
+    public String getText() { return text; }
 }

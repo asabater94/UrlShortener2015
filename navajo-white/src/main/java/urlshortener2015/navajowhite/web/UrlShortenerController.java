@@ -23,6 +23,7 @@ import java.net.URI;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.UUID;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
@@ -58,8 +59,21 @@ public class UrlShortenerController {
 		}
 		else {
 			//return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			String msg = "";
+			if (l == null) {
+				msg = "URL has never been active";
+			}
+			else {
+				Timestamp lastReachable = l.getLastReachable();
+				if (lastReachable == null) {
+					msg = "URL has never been active";
+				}
+				else {
+					msg = "URL was active for last time: " + lastReachable.toString().substring(0, 16);
+				}
+			}
 
-			throw new NotFoundException();
+			throw new NotFoundException(msg);
 		}
 	}
 
@@ -90,10 +104,10 @@ public class UrlShortenerController {
 		//log.info(cl!=null?"["+hash+"] saved with id ["+cl.getId()+"]":"["+hash+"] was not saved");
 	}
 
-	@RequestMapping(value = "/NOT_FOUND")
+	/*@RequestMapping(value = "/NOT_FOUND")
 	public String notFound(Model model) {
 		return "publicidad";
-	}
+	}*/
 
 	protected String extractIP(HttpServletRequest request) {
 

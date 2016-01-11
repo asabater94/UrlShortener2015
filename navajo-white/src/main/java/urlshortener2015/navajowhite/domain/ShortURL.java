@@ -19,11 +19,12 @@ public class ShortURL implements Comparable {
 	private int active;
 	private int update_status;		// 0 -> pending to update; 1 -> updating
 	private Timestamp last_change;
+	private Timestamp lastReachable;
 
 
 	public ShortURL(String hash, String target, URI uri, String sponsor,
 					Date created, String owner, Integer mode, Boolean safe, String ip,
-					String country, Timestamp last_change, int active, int update_status) {
+					String country, Timestamp last_change, int active, int update_status, Timestamp lastReachable) {
 		this.hash = hash;
 		this.target = target;
 		this.uri = uri;
@@ -37,6 +38,7 @@ public class ShortURL implements Comparable {
 		this.last_change = last_change;
 		this.active = active;
 		this.update_status = update_status;
+		this.lastReachable = lastReachable;
 	}
 
 	public ShortURL(String hash, String target, URI uri, String sponsor,
@@ -104,11 +106,16 @@ public class ShortURL implements Comparable {
 
 	public int getUpdate_status() { return update_status; }
 
+	public Timestamp getLastReachable() { return lastReachable; }
+
 	public void setActive(int active) { this.active = active; }
 
 	public void setLastChange(Timestamp last_change) { this.last_change = last_change; }
 
 	public void setUpdate_status(int update_status) { this.update_status = update_status; }
+
+	public void setLastReachable(Timestamp lastReachable) { this.lastReachable = lastReachable; }
+
 
 	/**
 	 * Return the priority for the PriorityBlockingQueue

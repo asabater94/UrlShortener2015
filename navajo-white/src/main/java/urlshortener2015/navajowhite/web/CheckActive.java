@@ -40,20 +40,9 @@ public class CheckActive implements InitializingBean {
     public void reportCurrentTime() {
 
         java.sql.Timestamp minTimestamp = new java.sql.Timestamp(Calendar.getInstance().getTime().getTime() - TIME_DIFF);
-        //System.out.println( new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()) + "   " + minTimestamp);
         List<ShortURL> list = shortURLRepository.listToUpdate(minTimestamp);
 
-        //System.out.println("URLs found: " + list);
-
         for (ShortURL s:list) {
-            //System.out.println("Puting " + s.getTarget() + "   " + currentTimestamp + "   " + s.getLastChange());
-
-            //long diff = nextTimestamp.getTime() - s.getLastChange().getTime();
-
-            // TO_DO :
-                // OBTENER CALCULO DIRECTAMENTE DE BD
-
-           // if (diff >= TIME_DIFF) {
                 try {
 
                     s.setUpdate_status(1);      // Updating active URL
@@ -64,7 +53,6 @@ public class CheckActive implements InitializingBean {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-            //}
         }
     }
 
@@ -75,14 +63,7 @@ public class CheckActive implements InitializingBean {
     public void addNewURL(ShortURL url) {
         System.out.println("URL created -> " + url.getTarget());
         try {
-            Object[] array = queue.toArray();
-            //System.out.println("--------------------------------------------");
-           // printArray(array);
             queue.put(url);
-            Object[] array2 = queue.toArray();
-            //printArray(array2);
-            //System.out.println("--------------------------------------------");
-
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -92,7 +73,6 @@ public class CheckActive implements InitializingBean {
     private void printArray(Object[] array) {
         for (Object o:array) {
             ShortURL s = (ShortURL) o;
-
             System.out.println("\t " + s.getTarget() + "\t" + s.getHash() + "\t" + s.getUpdate_status() + "\tsize:" + queue.size() + "\tactivo:" + s.getActive());
         }
         System.out.println();

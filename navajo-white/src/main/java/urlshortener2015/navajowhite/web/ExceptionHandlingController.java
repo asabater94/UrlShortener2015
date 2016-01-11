@@ -13,6 +13,7 @@ public class ExceptionHandlingController {
     @ExceptionHandler(NotFoundException.class)
     public ModelAndView notFoundException(NotFoundException ex) {
         ModelAndView model = new ModelAndView("404_NOT_FOUND");
+        model.addObject("lastDate", ex.getText());
         return model;
     }
 

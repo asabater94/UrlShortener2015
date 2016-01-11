@@ -10,6 +10,7 @@ import urlshortener2015.navajowhite.repository.ShortURLRepository;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.concurrent.BlockingQueue;
 
@@ -41,12 +42,12 @@ public class CheckActiveThread implements Runnable {
                 URL urlServer = null;
                 try {
                     urlServer = new URL(s.getTarget());
-
                     HttpURLConnection urlConn = (HttpURLConnection) urlServer.openConnection();
                     urlConn.setConnectTimeout(5000); //<- 5 Seconds Timeout
                     urlConn.connect();
                     if (urlConn.getResponseCode() == 200) {		// URL reachable
                         s.setActive(1);
+                        s.setLastReachable(new Timestamp(Calendar.getInstance().getTime().getTime()));
                     } else {				// URL unreachable
                         s.setActive(0);
                     }
