@@ -33,11 +33,10 @@ public class ControllerStats {
     protected ShortURLRepository shortURLRepository;
 
     /**
-     * Controlador encargado de devolver la información de la URL acortada con identificador <hash>
-     *     en formato JSON.
-     * @param hash identificador de la url acortada
-     * @param name
-     * @return devuelve El target, fecha de creacion y numero de clicks de <hash> en formato JSON
+     * Controller that returns the info about a short URL with identifier = <hash> in JSON format.
+     * @param hash identifier of short URL
+     * @param name -
+     * @return returns: target, date created and number of clicks of the short URL with identifier = <hash>
      */
     //produces={ "application/json"} // MediaType.APPLICATION_JSON_VALUE
     @RequestMapping(value = "/{hash:(?!link).*}" + "+" , method = RequestMethod.GET, produces="application/json")
@@ -50,11 +49,10 @@ public class ControllerStats {
     }
 
     /**
-     * Controlador encargado de devolver la información de la URL acortada con identificador <hash>
-     *     en formato HTML.
-     * @param hash identificador de la url acortada
-     * @param name
-     * @return devuelve El target, fecha de creacion y numero de clicks de <hash> en formato HTML
+     * Controller that returns the info about a short URL with identifier = <hash> in HTML format.
+     * @param hash identifier of short URL
+     * @param name -
+     * @return returns: target, date created and number of clicks of the short URL with identifier = <hash>
      */
     @RequestMapping(value = "/{hash:(?!link).*}" + "+", method = RequestMethod.GET , produces ="text/html" )
     public Object stats(@PathVariable String hash,
@@ -68,15 +66,15 @@ public class ControllerStats {
     }
 
     /**
-     * Controlador encargado de devolverla información sobre los clicks asociados a la URL acortada con
-     * identificador igual a <hash> en formato HTML
-     * @param hash identificador de la URL a analizar
-     * @param desde fecha de inicio del intervalo para mostrar clicks
-     * @param hasta fecha de finalización del intervalo para mostrar clicks
+     * Controller that returns the info about a short URL with identifier = <hash>, filtered by time interval
+     * and cities/countries, in HTML format.
+     * @param hash identifier of short URL
+     * @param desde starting date of time interval
+     * @param hasta ending date of time interval
      * @param country -
      * @param city -
-     * @param type Tipo de información a mostrar. Ordenada según "Cities" o "Countries"
-     * @return el número de clicks en un intervalo de tiempo determinado según el atributo <type> en formato HTML
+     * @param type type of info (countries or cities)
+     * @return return number of clicks in a time interval, shortened by cities or countries, in HTML format
      */
     @RequestMapping(value = "/{hash:(?!link).*}" + "+ADMIN")
     public ModelAndView admin(@PathVariable String hash,
@@ -146,13 +144,13 @@ public class ControllerStats {
     }
 
     /**
-     * Controlador encargado de devolverla información sobre los clicks asociados a la URL acortada con
-     * identificador igual a <hash> en formato JSON
-     * @param hash identificador de la URL a analizar
-     * @param desde fecha de inicio del intervalo para mostrar clicks
-     * @param hasta fecha de finalización del intervalo para mostrar clicks
-     * @param type Tipo de información a mostrar. Ordenada según "Cities" o "Countries"
-     * @return el número de clicks en un intervalo de tiempo determinado según el atributo <type> en formato JSON
+     * Controller that returns the info about a short URL with identifier = <hash>, filtered by time interval
+     * and cities/countries, in JSON format.
+     * @param hash identifier of short URL
+     * @param desde starting date of time interval
+     * @param hasta ending date of time interval
+     * @param type type of info (countries or cities)
+     * @return return number of clicks in a time interval, shortened by cities or countries, in JSON format
      */
     @RequestMapping(value = "/{hash:(?!link).*}" + "+ADMIN" , produces="application/json")
     public ResponseEntity<?> adminJSON(@PathVariable String hash,
@@ -210,12 +208,13 @@ public class ControllerStats {
     }
 
     /**
-     * Metodo encargado de devolver una lista con la información sobre los clicks en una URL acortada determinada
-     * @param hash identificador de la URL a analizar
-     * @param desde fecha de inicio del intervalo para mostrar clicks
-     * @param hasta fecha de finalización del intervalo para mostrar clicks
-     * @param type Tipo de información a mostrar. Ordenada según "Cities" o "Countries"
-     * @return List<Info> con la información encontrada
+     * Controller that returns a List of the info about a short URL with identifier = <hash>, filtered by time interval
+     * and cities/countries, in HTML format.
+     * @param hash identifier of short URL
+     * @param desde starting date of time interval
+     * @param hasta ending date of time interval
+     * @param type type of info (countries or cities)
+     * @return return a List of Info with number of clicks in a time interval, shortened by cities or countries, in HTML format
      */
     private List<Info> rellenarDatos (String type, String hash, java.sql.Date desde, java.sql.Date hasta){
 
@@ -293,7 +292,7 @@ public class ControllerStats {
         return data;
     }
 
-    //TODO Terminar controller para que envíe localizaciones [lat,lon] de cada click para mostrar en el mapa
+    //TODO Finish the controller in order to return the location of every click
     @RequestMapping(value = "/{hash:(?!link).*}" + "+ADMINmap")
     public ModelAndView adminMap(@PathVariable String hash,
                               @RequestParam(value = "desde", required = false, defaultValue="") String desde,

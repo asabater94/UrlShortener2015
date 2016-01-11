@@ -64,10 +64,10 @@ public class UrlShortenerController {
 	}
 
 	/**
-	 * Metodo encargado de almacenar los clicks en la base de datos. HAce uso de un
-	 * servicio externo (ip-api.com) para extraer la city, country, latitud y longitud
-	 * @param hash identificador de la url acortada
-	 * @param ip ip de la peticion
+	 * Method that store the clicks. Uses an external service hosted at "http://ip-api.com"
+	 * in order to extract the city, country, lat/lon
+	 * @param hash identifier of short URL
+	 * @param ip IP of Request
      */
 	protected void createAndSaveClick(String hash, String ip) {
 
@@ -102,9 +102,9 @@ public class UrlShortenerController {
 	}
 
 	/**
-	 * Metodo encargado de extraer la IP de una Request
-	 * @param request peticion de la que sacar la IP
-	 * @return IP de la request
+	 * Method that returns the IP of a HttpServletRequest
+	 * @param request HttpServletRequest
+	 * @return IP in String format
      */
 	protected String extractIP(HttpServletRequest request) {
 		URL whatismyip = null;
