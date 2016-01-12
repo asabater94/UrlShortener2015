@@ -20,9 +20,7 @@ import java.util.UUID;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
-/**
- * Created by Sisu on 30/11/2015.
- */
+
 @RestController
 public class UrlShortenerControllerPubli {
 
@@ -37,7 +35,11 @@ public class UrlShortenerControllerPubli {
         return request.getRemoteAddr();
     }
 
-
+    /**
+     * Method that returns the final web (target) of a URI (id) that obtains in the value parameter.
+     * @param id
+     * @param request
+     */
     @RequestMapping(value = "/redireccion/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> redirectTo(@PathVariable String id,
                                         HttpServletRequest request) {
@@ -56,6 +58,14 @@ public class UrlShortenerControllerPubli {
         return new ResponseEntity<>(h, HttpStatus.valueOf(l.getMode()));
     }
 
+    /**
+     * Method that creates a new URI with publicity and call to the method createAndSaveIfValid for saving it in the
+     * database.
+     * @param url
+     * @param sponsor
+     * @param brand
+     * @param request
+     */
     @RequestMapping(value = "/publicidad", method = RequestMethod.POST)
     public ResponseEntity<ShortURL> shortener(@RequestParam("url") String url,
                                               @RequestParam(value = "sponsor", required = false) String sponsor,
@@ -74,6 +84,14 @@ public class UrlShortenerControllerPubli {
         }
     }
 
+    /**
+     * Method that save a new URI with publicity in the database if this is valid.
+     * @param url
+     * @param sponsor
+     * @param brand
+     * @param owner
+     * @param ip
+     */
     protected ShortURL createAndSaveIfValid(String url, String sponsor,
                                             String brand, String owner, String ip) {
         UrlValidator urlValidator = new UrlValidator(new String[] { "http",
@@ -83,7 +101,7 @@ public class UrlShortenerControllerPubli {
                     .hashString(url, StandardCharsets.UTF_8).toString();
             ShortURL su = new ShortURL(id, url,
                     linkTo(
-                            methodOn(UrlShortenerController.class).redirectTo(  //guardo con publicidad
+                            methodOn(UrlShortenerController.class).redirectTo(  //save with publicity
                                     id, null)).toUri(), "SI", new Date(
                     System.currentTimeMillis()), owner,
                     HttpStatus.TEMPORARY_REDIRECT.value(), true, ip, null,0);
