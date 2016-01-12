@@ -32,6 +32,12 @@ public class ControllerStats {
     @Autowired
     protected ShortURLRepository shortURLRepository;
 
+    /**
+     * Controller that returns the info about a short URL with identifier = <hash> in JSON format.
+     * @param hash identifier of short URL
+     * @param name -
+     * @return returns: target, date created and number of clicks of the short URL with identifier = <hash>
+     */
     //produces={ "application/json"} // MediaType.APPLICATION_JSON_VALUE
     @RequestMapping(value = "/{hash:(?!link).*}" + "+" , method = RequestMethod.GET, produces="application/json")
     public ResponseEntity<?> stats2(@PathVariable String hash,
@@ -42,6 +48,12 @@ public class ControllerStats {
         return new ResponseEntity<>(info, HttpStatus.OK);
     }
 
+    /**
+     * Controller that returns the info about a short URL with identifier = <hash> in HTML format.
+     * @param hash identifier of short URL
+     * @param name -
+     * @return returns: target, date created and number of clicks of the short URL with identifier = <hash>
+     */
     @RequestMapping(value = "/{hash:(?!link).*}" + "+", method = RequestMethod.GET , produces ="text/html" )
     public Object stats(@PathVariable String hash,
                         @RequestParam(value="name", required=false, defaultValue="0") String name, Model model) {
@@ -53,6 +65,17 @@ public class ControllerStats {
         return "statsHTML";
     }
 
+    /**
+     * Controller that returns the info about a short URL with identifier = <hash>, filtered by time interval
+     * and cities/countries, in HTML format.
+     * @param hash identifier of short URL
+     * @param desde starting date of time interval
+     * @param hasta ending date of time interval
+     * @param country -
+     * @param city -
+     * @param type type of info (countries or cities)
+     * @return return number of clicks in a time interval, shortened by cities or countries, in HTML format
+     */
     @RequestMapping(value = "/{hash:(?!link).*}" + "+ADMIN")
     public ModelAndView admin(@PathVariable String hash,
                               @RequestParam(value = "desde", required = false, defaultValue="") String desde,
@@ -120,6 +143,15 @@ public class ControllerStats {
         return model;
     }
 
+    /**
+     * Controller that returns the info about a short URL with identifier = <hash>, filtered by time interval
+     * and cities/countries, in JSON format.
+     * @param hash identifier of short URL
+     * @param desde starting date of time interval
+     * @param hasta ending date of time interval
+     * @param type type of info (countries or cities)
+     * @return return number of clicks in a time interval, shortened by cities or countries, in JSON format
+     */
     @RequestMapping(value = "/{hash:(?!link).*}" + "+ADMIN" , produces="application/json")
     public ResponseEntity<?> adminJSON(@PathVariable String hash,
                               @RequestParam(value = "desde", required = false, defaultValue="") String desde,
@@ -175,6 +207,15 @@ public class ControllerStats {
         return new ResponseEntity<>(data, HttpStatus.OK);
     }
 
+    /**
+     * Controller that returns a List of the info about a short URL with identifier = <hash>, filtered by time interval
+     * and cities/countries, in HTML format.
+     * @param hash identifier of short URL
+     * @param desde starting date of time interval
+     * @param hasta ending date of time interval
+     * @param type type of info (countries or cities)
+     * @return return a List of Info with number of clicks in a time interval, shortened by cities or countries, in HTML format
+     */
     private List<Info> rellenarDatos (String type, String hash, java.sql.Date desde, java.sql.Date hasta){
 
         List<Info> data = null;
@@ -251,6 +292,7 @@ public class ControllerStats {
         return data;
     }
 
+    //TODO Finish the controller in order to return the location of every click
     @RequestMapping(value = "/{hash:(?!link).*}" + "+ADMINmap")
     public ModelAndView adminMap(@PathVariable String hash,
                               @RequestParam(value = "desde", required = false, defaultValue="") String desde,
