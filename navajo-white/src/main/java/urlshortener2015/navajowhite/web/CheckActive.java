@@ -1,17 +1,21 @@
 package urlshortener2015.navajowhite.web;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.*;
 
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import urlshortener2015.navajowhite.domain.ShortURL;
 import urlshortener2015.navajowhite.repository.ShortURLRepository;
+
+/**
+ * Alberto Sabater, 546297
+ * Jorge Martinez, 571735
+ * Adrian Susinos, 650220
+ */
 
 @Component
 public class CheckActive implements InitializingBean {
@@ -21,9 +25,13 @@ public class CheckActive implements InitializingBean {
     private final int NUM_THREADS = 2;                  // Number of threads checking urls
     private final int TIME_DIFF = 5*60*1000;            // Min time difference between two active checks (ms)
 
-    private BlockingQueue<ShortURL> queue;
+    private BlockingQueue<ShortURL> queue;              // ShorURL warehouse
 
 
+    /**
+     * Initialize the queue and launch threads
+     * @throws Exception
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         queue = new PriorityBlockingQueue<ShortURL>();
@@ -36,6 +44,9 @@ public class CheckActive implements InitializingBean {
     }
 
 
+    /**
+     * Every 10 seconds gets URLs to update and put them in the queue
+     */
     @Scheduled(fixedRate = 10000)
     public void reportCurrentTime() {
 
@@ -44,7 +55,6 @@ public class CheckActive implements InitializingBean {
 
         for (ShortURL s:list) {
                 try {
-
                     s.setUpdate_status(1);      // Updating active URL
                     System.out.println("Puting " + s.getTarget() + "   activo:" + s.getActive() + " size:" + queue.size() + " status:" + s.getUpdate_status());
 

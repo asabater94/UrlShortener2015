@@ -17,6 +17,11 @@ import urlshortener2015.navajowhite.domain.Click;
 import java.sql.*;
 import java.util.List;
 
+/**
+ * Alberto Sabater, 546297
+ * Jorge Martinez, 571735
+ * Adrian Susinos, 650220
+ */
 
 @Repository
 public class ClickRepositoryImpl implements ClickRepository {

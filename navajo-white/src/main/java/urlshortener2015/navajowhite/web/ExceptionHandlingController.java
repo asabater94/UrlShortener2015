@@ -5,11 +5,19 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * Created by alber on 27/12/2015.
+ * Alberto Sabater, 546297
+ * Jorge Martinez, 571735
+ * Adrian Susinos, 650220
  */
+
 @ControllerAdvice
 public class ExceptionHandlingController {
 
+    /**
+     * Manage NotFoundException redirecting to default 404 page
+     * @param ex
+     * @return
+     */
     @ExceptionHandler(NotFoundException.class)
     public ModelAndView notFoundException(NotFoundException ex) {
         ModelAndView model = new ModelAndView("404_NOT_FOUND");

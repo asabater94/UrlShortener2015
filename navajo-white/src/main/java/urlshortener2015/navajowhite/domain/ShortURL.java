@@ -4,6 +4,11 @@ import java.net.URI;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+/**
+ * Alberto Sabater, 546297
+ * Jorge Martinez, 571735
+ * Adrian Susinos, 650220
+ */
 public class ShortURL implements Comparable {
 
 	private String hash;
@@ -17,9 +22,9 @@ public class ShortURL implements Comparable {
 	private String ip;
 	private String country;
 	private int active;
-	private int update_status;		// 0 -> pending to update; 1 -> updating
-	private Timestamp last_change;
-	private Timestamp lastReachable;
+	private int update_status;		// 0 -> pending to update; 1 -> updating; 2 -> check first active
+	private Timestamp last_change;	// Time when the URL was checked for last time
+	private Timestamp lastReachable;	// Time when the URL was active for last time
 
 
 	public ShortURL(String hash, String target, URI uri, String sponsor,

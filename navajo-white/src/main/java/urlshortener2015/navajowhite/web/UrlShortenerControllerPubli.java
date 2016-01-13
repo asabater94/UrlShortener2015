@@ -20,6 +20,11 @@ import java.util.UUID;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
+/**
+ * Alberto Sabater, 546297
+ * Jorge Martinez, 571735
+ * Adrian Susinos, 650220
+ */
 
 @RestController
 public class UrlShortenerControllerPubli {

@@ -13,8 +13,11 @@ import urlshortener2015.navajowhite.repository.ShortURLRepository;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Created by coke on 23/11/2015.
+ * Alberto Sabater, 546297
+ * Jorge Martinez, 571735
+ * Adrian Susinos, 650220
  */
+
 @Controller
 public class Publicidad {
 

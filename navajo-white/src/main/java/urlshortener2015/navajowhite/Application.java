@@ -7,6 +7,12 @@ import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+/**
+ * Alberto Sabater, 546297
+ * Jorge Martinez, 571735
+ * Adrian Susinos, 650220
+ */
+
 @SpringBootApplication
 @EnableScheduling
 public class Application extends SpringBootServletInitializer {

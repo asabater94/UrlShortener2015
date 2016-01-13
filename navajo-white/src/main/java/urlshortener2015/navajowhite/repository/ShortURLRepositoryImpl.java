@@ -18,6 +18,12 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Alberto Sabater, 546297
+ * Jorge Martinez, 571735
+ * Adrian Susinos, 650220
+ */
+
 @Repository
 public class ShortURLRepositoryImpl implements ShortURLRepository {
 
@@ -147,8 +153,8 @@ public class ShortURLRepositoryImpl implements ShortURLRepository {
 	}
 
 	/**
-	 * Returns the ShortURL whose last_change has been more than TIME_DIFF
-	 * milliseconds ago
+	 * Returns the ShortURL's whose last_change is more than TIME_DIFF
+	 * milliseconds
 	 */
 	public List<ShortURL> listToUpdate(Timestamp t) {
 		try {

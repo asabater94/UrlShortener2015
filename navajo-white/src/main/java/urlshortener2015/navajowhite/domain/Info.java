@@ -1,7 +1,9 @@
 package urlshortener2015.navajowhite.domain;
 
 /**
- * Created by coke on 12/12/2015.
+ * Alberto Sabater, 546297
+ * Jorge Martinez, 571735
+ * Adrian Susinos, 650220
  */
 public class Info {
 

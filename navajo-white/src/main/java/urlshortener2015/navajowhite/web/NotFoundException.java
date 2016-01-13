@@ -1,8 +1,11 @@
 package urlshortener2015.navajowhite.web;
 
 /**
- * Created by alber on 27/12/2015.
+ * Alberto Sabater, 546297
+ * Jorge Martinez, 571735
+ * Adrian Susinos, 650220
  */
+
 public class NotFoundException extends RuntimeException {
 
     private String text;

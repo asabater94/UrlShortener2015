@@ -3,8 +3,11 @@ package urlshortener2015.navajowhite.domain;
 import java.sql.Date;
 
 /**
- * Created by coke on 14/12/2015.
+ * Alberto Sabater, 546297
+ * Jorge Martinez, 571735
+ * Adrian Susinos, 650220
  */
+
 public class ShortURLinfo {
 
     private String target;

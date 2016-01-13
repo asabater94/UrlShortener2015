@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import urlshortener2015.navajowhite.domain.Click;
 import urlshortener2015.navajowhite.domain.ShortURL;
@@ -29,6 +28,12 @@ import java.util.UUID;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
+/**
+ * Alberto Sabater, 546297
+ * Jorge Martinez, 571735
+ * Adrian Susinos, 650220
+ */
+
 @RestController
 public class UrlShortenerController {
 
@@ -49,16 +54,15 @@ public class UrlShortenerController {
 		ShortURL l = shortURLRepository.findByKey(id);
 		if (l != null && l.getActive() == 1) {
 			createAndSaveClick(id, extractIP(request));
-			if (l.getSponsor().equals("NO")) {	//vamos a la direccion normal
+			if (l.getSponsor().equals("NO")) {	//go to normal target
 				return createSuccessfulRedirectToResponse(l);
-			} else {	//vamos a la direccion con "++" para que vaya a la publi
+			} else {	//go to publi with ++
 				HttpHeaders h = new HttpHeaders();
 				h.setLocation(URI.create(l.getHash() + "++"));
 				return new ResponseEntity<>(h, HttpStatus.valueOf(l.getMode()));
 			}
 		}
-		else {
-			//return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		else {	// go to 404 error page with last active date
 			String msg = "";
 			if (l == null) {
 				msg = "URL has never been active";
@@ -109,11 +113,6 @@ public class UrlShortenerController {
 		cl=clickRepository.save(cl);
 		//log.info(cl!=null?"["+hash+"] saved with id ["+cl.getId()+"]":"["+hash+"] was not saved");
 	}
-
-	/*@RequestMapping(value = "/NOT_FOUND")
-	public String notFound(Model model) {
-		return "publicidad";
-	}*/
 
 	/**
 	 * Method that returns the IP of a HttpServletRequest

@@ -1,22 +1,20 @@
 package urlshortener2015.navajowhite.web;
 
-import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import urlshortener2015.navajowhite.domain.ShortURL;
 import urlshortener2015.navajowhite.repository.ShortURLRepository;
 
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.concurrent.BlockingQueue;
 
 /**
- * Created by alber on 17/12/2015.
+ * Alberto Sabater, 546297
+ * Jorge Martinez, 571735
+ * Adrian Susinos, 650220
  */
+
 public class CheckActiveThread implements Runnable {
 
     private ShortURLRepository shortURLRepository;
@@ -30,6 +28,9 @@ public class CheckActiveThread implements Runnable {
         this.id = id;
     }
 
+    /**
+     * Wait for a URL to update and check his status
+     */
     @Override
     public void run() {
 
