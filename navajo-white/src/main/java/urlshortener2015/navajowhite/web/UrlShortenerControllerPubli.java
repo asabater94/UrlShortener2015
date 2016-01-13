@@ -61,10 +61,10 @@ public class UrlShortenerControllerPubli {
     /**
      * Method that creates a new URI with publicity and call to the method createAndSaveIfValid for saving it in the
      * database.
-     * @param url
-     * @param sponsor
-     * @param brand
-     * @param request
+     * @param url -
+     * @param sponsor -
+     * @param brand -
+     * @param request -
      */
     @RequestMapping(value = "/publicidad", method = RequestMethod.POST)
     public ResponseEntity<ShortURL> shortener(@RequestParam("url") String url,
@@ -86,11 +86,11 @@ public class UrlShortenerControllerPubli {
 
     /**
      * Method that save a new URI with publicity in the database if this is valid.
-     * @param url
-     * @param sponsor
-     * @param brand
-     * @param owner
-     * @param ip
+     * @param url -
+     * @param sponsor define if the URI has publicity
+     * @param brand -
+     * @param owner -
+     * @param ip -
      */
     protected ShortURL createAndSaveIfValid(String url, String sponsor,
                                             String brand, String owner, String ip) {

@@ -22,10 +22,10 @@ public class Publicidad {
     protected ShortURLRepository shortURLRepository;
 
     /**
-     * Method that returns a html (publicidad.html) and allow to use the attributes target and hash in it.
-     * @param hash
-     * @param name
-     * @param model
+     * Method that returns a html (publicidad.html) and allows to use the attributes target and hash in it.
+     * @param hash identifier of the short URL
+     * @param name -
+     * @param model -
      */
     @RequestMapping(value = "/{hash:(?!link).*}" + "++")
     public String publi(@PathVariable String hash,
